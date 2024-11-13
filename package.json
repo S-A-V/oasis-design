@@ -1,0 +1,41 @@
+{
+  "private": true,
+  "version": "0.0.1",
+  "description": "",
+  "type": "module",
+  "author": "",
+  "license": "ISC",
+  "scripts": {
+    "dev": "",
+    "build": "",
+    "lint-staged": "lint-staged",
+    "commit": "git-cz",
+    "preinstall": "npx only-allow pnpm",
+    "prepare": "husky",
+    "predev": "pnpm install",
+    "prebuild": "pnpm install"
+  },
+  "engines": {
+    "node": "^18.0.0 || >=20.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "@commitlint/cz-commitlint"
+    }
+  },
+  "devDependencies": {
+    "@commitlint/cli": "19.5.0",
+    "@commitlint/cz-commitlint": "19.5.0",
+    "@way-ui/commitlint-config": "^0.0.2",
+    "@way-ui/eslint-config": "^0.0.2",
+    "@way-ui/prettier-config": "^0.0.1",
+    "@way-ui/stylelint-config": "^0.0.4",
+    "commitizen": "4.3.0",
+    "eslint": "9.10.0",
+    "husky": "9.1.6",
+    "lint-staged": "15.2.10",
+    "prettier": "3.3.3",
+    "sass": "1.77.5",
+    "stylelint": "16.9.0"
+  }
+}

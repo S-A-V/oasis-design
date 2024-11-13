@@ -1,0 +1,22 @@
+lockfileVersion: '9.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+importers:
+
+  .:
+    dependencies:
+      '@way-ui/internal-utils':
+        specifier: ^0.0.1
+        version: 0.0.1
+
+packages:
+
+  '@way-ui/internal-utils@0.0.1':
+    resolution: {integrity: sha512-ZwCAcJGZ+T/YL94aZkQfX06K8SqfpBIhRQPZ5m6nruEb3Wmpsvc+pdUk0T/YhG3ds45Dslkro1gvCyEhUtvSCA==}
+
+snapshots:
+
+  '@way-ui/internal-utils@0.0.1': {}

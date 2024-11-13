@@ -1,0 +1,19 @@
+{
+  "name": "@way-ui/directives",
+  "version": "0.0.4",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
+  },
+  "dependencies": {
+    "@way-ui/internal-utils": "^0.0.1"
+  }
+}

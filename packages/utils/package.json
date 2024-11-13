@@ -1,0 +1,23 @@
+{
+  "name": "@way-ui/utils",
+  "version": "0.0.9",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
+  },
+  "dependencies": {
+    "crypto-js": "4.2.0",
+    "gm-crypt": "0.0.2",
+    "js-cookie": "3.0.5",
+    "jsencrypt": "3.3.2",
+    "vue": "3.4.31"
+  }
+}

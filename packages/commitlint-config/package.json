@@ -1,0 +1,19 @@
+{
+  "name": "@way-ui/commitlint-config",
+  "version": "0.0.2",
+  "description": "",
+  "type": "module",
+  "main": "index.mjs",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
+  },
+  "dependencies": {
+    "@commitlint/config-conventional": "19.5.0"
+  }
+}

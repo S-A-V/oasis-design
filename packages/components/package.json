@@ -1,0 +1,24 @@
+{
+  "name": "@way-ui/components",
+  "version": "0.0.52",
+  "description": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "publishConfig": {
+    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
+  },
+  "dependencies": {
+    "@way-ui/constants": "^0.0.3",
+    "@way-ui/internal-utils": "^0.0.1",
+    "@way-ui/utils": "^0.0.9",
+    "element-plus": "2.7.6",
+    "vue": "3.4.31",
+    "vue-router": "4.4.0"
+  }
+}
