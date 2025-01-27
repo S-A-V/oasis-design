@@ -1,12 +1,14 @@
 /**
  * 加密解密方法
  */
-import CryptoJS from 'crypto-js';
-import { sm4 } from 'gm-crypt';
+import * as CryptoJS from 'crypto-js';
+import * as GmCrypt from 'gm-crypt';
+
+const { sm4 } = GmCrypt;
 
 export class Encryption {
   constructor(key) {
-    // this.key = keys || import.meta.env.VITE_BASE_ENCRYPTION_KEY;
+    // this.key = keys || VITE_BASE_ENCRYPTION_KEY;
     this.key = key;
   }
 

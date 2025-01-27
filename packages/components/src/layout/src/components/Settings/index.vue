@@ -1,5 +1,7 @@
 <template>
-  <el-drawer v-model="showSettings" :with-header="false" direction="rtl" size="300px">
+  <el-drawer v-model="showSettings" title="主题配置" direction="rtl" :size="308">
+    <div class="drawer-container">
+      <!--
     <div class="setting-drawer-title">
       <h3 class="drawer-title">主题风格设置</h3>
     </div>
@@ -62,10 +64,11 @@
       </span>
     </div>
     <el-divider />
+    -->
 
-    <h3 class="drawer-title">系统布局配置</h3>
+      <div class="drawer-title">界面显示</div>
 
-    <!--
+      <!--
     <div class="drawer-item">
       <span>开启 TopNav</span>
       <span class="comp-style">
@@ -78,21 +81,21 @@
     </div>
     -->
 
-    <div class="drawer-item">
-      <span>开启常用菜单</span>
-      <span class="comp-style">
-        <el-switch v-model="settingsStore.commonMenus" class="drawer-switch" />
-      </span>
-    </div>
+      <div class="drawer-item">
+        <span>开启常用菜单</span>
+        <span class="comp-style">
+          <el-switch v-model="settingsStore.commonMenus" class="drawer-switch" />
+        </span>
+      </div>
 
-    <div class="drawer-item">
-      <span>开启 Tags-Views</span>
-      <span class="comp-style">
-        <el-switch v-model="settingsStore.tagsView" class="drawer-switch" />
-      </span>
-    </div>
+      <div class="drawer-item">
+        <span>开启 Tags-Views</span>
+        <span class="comp-style">
+          <el-switch v-model="settingsStore.tagsView" class="drawer-switch" />
+        </span>
+      </div>
 
-    <!--
+      <!--
     <div class="drawer-item">
       <span>固定 Header</span>
       <span class="comp-style">
@@ -101,32 +104,32 @@
     </div>
     -->
 
-    <div class="drawer-item">
-      <span>显示 Logo</span>
-      <span class="comp-style">
-        <el-switch v-model="settingsStore.sidebarLogo" class="drawer-switch" />
-      </span>
+      <div class="drawer-item">
+        <span>显示 Logo</span>
+        <span class="comp-style">
+          <el-switch v-model="settingsStore.sidebarLogo" class="drawer-switch" />
+        </span>
+      </div>
+
+      <div class="drawer-item">
+        <span>动态标题</span>
+        <span class="comp-style">
+          <el-switch v-model="settingsStore.dynamicTitle" class="drawer-switch" />
+        </span>
+      </div>
+
+      <el-divider />
+
+      <el-button type="primary" :icon="DocumentAdd" @click="saveSetting">保存配置</el-button>
+      <el-button plain :icon="Refresh" @click="resetSetting">重置配置</el-button>
     </div>
-
-    <div class="drawer-item">
-      <span>动态标题</span>
-      <span class="comp-style">
-        <el-switch v-model="settingsStore.dynamicTitle" class="drawer-switch" />
-      </span>
-    </div>
-
-    <el-divider />
-
-    <el-button type="primary" plain icon="DocumentAdd" @click="saveSetting">保存配置</el-button>
-    <el-button plain icon="Refresh" @click="resetSetting">重置配置</el-button>
   </el-drawer>
 </template>
 
 <script setup>
 import { ref, computed, getCurrentInstance } from 'vue';
-import variables from '@/assets/styles/variables.module.scss';
-import axios from 'axios';
-import { ElLoading, ElMessage } from 'element-plus';
+import { ElButton, ElSwitch, ElDivider, ElDrawer } from 'element-plus';
+import { Refresh, DocumentAdd } from '@element-plus/icons-vue';
 import useAppStore from '@/store/modules/app';
 import useSettingsStore from '@/store/modules/settings';
 import usePermissionStore from '@/store/modules/permission';
@@ -206,10 +209,16 @@ defineExpose({
   font-weight: bold;
   line-height: 22px;
   color: rgb(0 0 0 / 85%);
+}
 
-  .drawer-title {
-    font-size: 14px;
-  }
+.drawer-container {
+  padding: 24px;
+}
+
+.drawer-title {
+  margin-bottom: 16px;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .setting-drawer-block-checbox {
@@ -237,6 +246,7 @@ defineExpose({
       box-shadow: 1px 1px 2px #898484;
     }
 
+    /* stylelint-disable-next-line selector-class-pattern */
     .setting-drawer-block-checbox-selectIcon {
       position: absolute;
       top: 0;
@@ -253,13 +263,13 @@ defineExpose({
 }
 
 .drawer-item {
-  padding: 12px 0;
+  margin-bottom: 24px;
   font-size: 14px;
   color: rgb(0 0 0 / 65%);
 
   .comp-style {
     float: right;
-    margin: -3px 8px 0 0;
+    margin-top: -6px;
   }
 }
 </style>

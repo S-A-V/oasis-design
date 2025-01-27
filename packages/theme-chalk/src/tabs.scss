@@ -1,0 +1,17 @@
+@use 'mixins/mixins' as *;
+
+.el-tabs {
+  &__nav-wrap {
+    &::after {
+      height: 1px;
+    }
+  }
+
+  &__active-bar {
+    height: 3px;
+  }
+
+  &__item {
+    color: var(--el-text-color-regular);
+  }
+}

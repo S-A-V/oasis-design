@@ -9,7 +9,19 @@ export default {
     'at-rule-no-unknown': [
       true,
       {
-        ignoreAtRules: ['if', 'else', 'for', 'each', 'while', 'mixin', 'include'],
+        ignoreAtRules: [
+          'use',
+          'forward',
+          'mixin',
+          'include',
+          'function',
+          'return',
+          'if',
+          'else',
+          'each',
+          'for',
+          'while',
+        ],
       },
     ],
     'selector-class-pattern': [

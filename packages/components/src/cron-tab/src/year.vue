@@ -84,12 +84,16 @@ const average02 = ref(1);
 const checkboxList = ref([]);
 const checkCopy = ref([]);
 const cycleTotal = computed(() => {
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   cycle01.value = props.check(cycle01.value, fullYear.value, maxFullYear.value - 1);
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   cycle02.value = props.check(cycle02.value, cycle01.value + 1, maxFullYear.value);
   return cycle01.value + '-' + cycle02.value;
 });
 const averageTotal = computed(() => {
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   average01.value = props.check(average01.value, fullYear.value, maxFullYear.value - 1);
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   average02.value = props.check(average02.value, 1, 10);
   return average01.value + '/' + average02.value;
 });

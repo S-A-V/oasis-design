@@ -1,12 +1,15 @@
-import { INSTALLED_KEY } from './constants'
+import { provideGlobalConfig } from '@way-ui/components/src/config-provider';
+import { INSTALLED_KEY } from './constants';
 
 export const makeInstaller = (components = []) => {
-  const install = (app) => {
-    if (app[INSTALLED_KEY]) return
+  const install = (app, options) => {
+    if (app[INSTALLED_KEY]) return;
 
-    app[INSTALLED_KEY] = true
-    components.forEach((c) => app.use(c))
-  }
+    app[INSTALLED_KEY] = true;
+    components.forEach((c) => app.use(c));
 
-  return install
-}
+    if (options) provideGlobalConfig(options, app, true);
+  };
+
+  return install;
+};

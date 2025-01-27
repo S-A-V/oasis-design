@@ -1,0 +1,35 @@
+@use 'mixins/mixins' as *;
+
+.el-dialog {
+  --el-dialog-bg-color: var(--way-color-info-10);
+  --el-dialog-title-font-size: var(--el-font-size-medium);
+  --el-dialog-padding-primary: 0;
+  --el-dialog-border-radius: 0;
+  --el-message-close-size: var(--el-font-size-large);
+}
+
+.el-dialog__header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px;
+  background-color: var(--way-color-info-11);
+  border-bottom: 1px solid var(--way-color-info-7);
+}
+
+.el-dialog__body {
+  padding: 0;
+}
+
+.el-dialog__footer {
+  padding: 16px;
+  border-top: 1px solid var(--way-color-info-7);
+
+  .el-button {
+    min-width: 104px;
+
+    + .el-button {
+      margin-left: 16px;
+    }
+  }
+}

@@ -1,10 +1,8 @@
 import Cookies from 'js-cookie';
 import { nextTick } from 'vue';
 import { ElNotification } from 'element-plus';
-import { Encryption } from './encryption';
 
-const encryption = new Encryption('PmwAIotJ@%8yWRQl');
-const ENCRYPTED_KEY = encryption.smEncrypt('encrypted');
+const ENCRYPTED_KEY = 'encrypted';
 
 export function getEncrypted() {
   return Cookies.get(ENCRYPTED_KEY) === 'true';

@@ -4,27 +4,23 @@
       id="hamburger-container"
       :is-active="appStore.sidebar.opened"
       class="hamburger-container"
-      @toggleClick="toggleSideBar"
+      @toggle-click="toggleSideBar"
     />
     <top-nav v-if="settingsStore.commonMenus" class="top-nav-container" />
     <w-breadcrumb
       v-show="false"
+      v-if="!settingsStore.topNav"
       id="breadcrumb-container"
       class="breadcrumb-container"
-      v-if="!settingsStore.topNav"
     />
-    <w-top-nav
-      id="topmenu-container"
-      class="topmenu-container"
-      v-if="settingsStore.topNav"
-    />
+    <w-top-nav v-if="settingsStore.topNav" id="topmenu-container" class="topmenu-container" />
 
     <div class="right-menu">
       <template v-if="appStore.device !== 'mobile'">
         <!--
         <w-header-search id="header-search" class="right-menu-item" />
 
-        <w-screenfull id="screenfull" class="right-menu-item hover-effect" />
+        <w-full-screen id="screenfull" class="right-menu-item hover-effect" />
 
         <el-tooltip content="布局大小" effect="dark" placement="bottom">
           <w-size-select
@@ -34,7 +30,7 @@
         </el-tooltip>
         -->
 
-        <w-screenfull class="full-screen-btn" />
+        <w-full-screen class="full-screen-btn" />
 
         <el-tooltip content="布局大小" effect="dark" placement="bottom">
           <w-size-select class="size-select-btn" />
@@ -83,11 +79,17 @@
 </template>
 
 <script setup>
-import { ElMessageBox } from "element-plus";
-import useAppStore from "@/store/modules/app";
-import useUserStore from "@/store/modules/user";
-import useSettingsStore from "@/store/modules/settings";
-import TopNav from "./TopNav";
+import { Setting } from '@element-plus/icons-vue';
+import { ElIcon, ElTooltip, ElMessageBox } from 'element-plus';
+import useAppStore from '@/store/modules/app';
+import useUserStore from '@/store/modules/user';
+import useSettingsStore from '@/store/modules/settings';
+import { WBreadcrumb } from '../../../breadcrumb';
+import { WFullScreen } from '../../../full-screen';
+import { WHamburger } from '../../../hamburger';
+import { WSizeSelect } from '../../../size-select';
+import { WTopNav } from '../../../top-nav';
+import TopNav from './TopNav';
 
 const appStore = useAppStore();
 const userStore = useUserStore();
@@ -99,10 +101,10 @@ function toggleSideBar() {
 
 function handleCommand(command) {
   switch (command) {
-    case "setLayout":
+    case 'setLayout':
       setLayout();
       break;
-    case "logout":
+    case 'logout':
       logout();
       break;
     default:
@@ -111,52 +113,54 @@ function handleCommand(command) {
 }
 
 function logout() {
-  ElMessageBox.confirm("确定注销并退出系统吗？", "提示", {
-    confirmButtonText: "确定",
-    cancelButtonText: "取消",
-    type: "warning",
+  ElMessageBox.confirm('确定注销并退出系统吗？', '提示', {
+    confirmButtonText: '确定',
+    cancelButtonText: '取消',
+    type: 'warning',
   })
     .then(() => {
       userStore.logOut().then(() => {
-        location.href = "/index";
+        location.href = '/index';
       });
     })
     .catch(() => {});
 }
 
-const emits = defineEmits(["setLayout"]);
+const emits = defineEmits(['setLayout']);
 function setLayout() {
-  emits("setLayout");
+  emits('setLayout');
 }
 </script>
 
 <style lang="scss" scoped>
 .navbar {
+  position: relative;
   height: 64px;
   overflow: hidden;
-  position: relative;
   background: #fff;
+
   // box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
-  box-shadow: 0px 1px 3px 0px rgba(220, 221, 225, 0.7),
-    0px -1px 0px 0px #dcdfe6 inset;
+  box-shadow:
+    0 1px 3px 0 rgb(220 221 225 / 70%),
+    0 -1px 0 0 #dcdfe6 inset;
 
   .hamburger-container {
-    float: left;
     display: inline-flex;
-    justify-content: center;
     align-items: center;
-    margin: 16px 0 0 16px;
+    justify-content: center;
+    float: left;
     width: 32px;
     height: 32px;
+    margin: 16px 0 0 16px;
     line-height: 32px;
-    border-radius: 6px;
     cursor: pointer;
-    background: rgba(0, 0, 0, 0.05);
+    background: rgb(0 0 0 / 5%);
+    border-radius: 6px;
     transition: background 0.3s;
     -webkit-tap-highlight-color: transparent;
 
     &:hover {
-      background: rgba(0, 0, 0, 0.025);
+      background: rgb(0 0 0 / 2.5%);
     }
   }
 
@@ -170,16 +174,17 @@ function setLayout() {
     left: 50px;
   }
 
+  /* stylelint-disable-next-line selector-class-pattern */
   .errLog-container {
     display: inline-block;
     vertical-align: top;
   }
 
   .right-menu {
+    display: flex;
     float: right;
     height: 100%;
     line-height: 50px;
-    display: flex;
 
     &:focus {
       outline: none;
@@ -187,8 +192,8 @@ function setLayout() {
 
     .right-menu-item {
       display: inline-block;
-      padding: 0 8px;
       height: 100%;
+      padding: 0 8px;
       font-size: 18px;
       color: #5a5e66;
       vertical-align: text-bottom;
@@ -198,76 +203,77 @@ function setLayout() {
         transition: background 0.3s;
 
         &:hover {
-          background: rgba(0, 0, 0, 0.025);
+          background: rgb(0 0 0 / 2.5%);
         }
       }
     }
 
     .full-screen-btn {
       display: inline-flex;
-      justify-content: center;
       align-items: center;
-      margin: 16px 0 0 16px;
+      justify-content: center;
       width: 32px;
       height: 32px;
-      border: 1px solid #d7dce3;
-      border-radius: 50%;
+      margin: 16px 0 0 16px;
       color: #231815;
       cursor: pointer;
+      border: 1px solid #d7dce3;
+      border-radius: 50%;
     }
 
     .size-select-btn {
+      /* stylelint-disable-next-line selector-class-pattern */
       :deep(.size-icon--style) {
         display: inline-flex;
-        justify-content: center;
         align-items: center;
-        margin: 16px 0 0 16px;
-        padding: 0;
+        justify-content: center;
         width: 32px;
         height: 32px;
-        border: 1px solid #d7dce3;
-        border-radius: 50%;
+        padding: 0;
+        margin: 16px 0 0 16px;
         color: #231815;
         cursor: pointer;
+        border: 1px solid #d7dce3;
+        border-radius: 50%;
       }
     }
 
     .icon-wrapper {
-      margin: 16px 0 0 16px;
       width: 32px;
       height: 32px;
+      margin: 16px 0 0 16px;
+      cursor: pointer;
       border: 1px solid #d7dce3;
       border-radius: 50%;
-      cursor: pointer;
     }
 
     .avatar-container {
       display: inline-flex;
       align-items: center;
-      margin: 0 24px;
+      margin: 0 16px;
 
       .avatar-wrapper {
         position: relative;
         display: inline-flex;
         align-items: center;
-        font-size: 14px;
-        color: #202020;
+        font-size: 16px;
         line-height: 20px;
+        color: var(--el-text-color-primary);
 
         .user-avatar {
+          width: 32px;
+          height: 32px;
           margin-right: 8px;
           cursor: pointer;
-          width: 24px;
-          height: 24px;
           border-radius: 50%;
         }
 
         i {
-          cursor: pointer;
           position: absolute;
-          right: -20px;
           top: 25px;
+          right: -20px;
           font-size: 12px;
+          cursor: pointer;
         }
       }
     }

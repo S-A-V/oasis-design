@@ -1,21 +1,34 @@
 <template>
-  <el-breadcrumb class="app-breadcrumb" separator="/">
-    <transition-group name="breadcrumb">
-      <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
-        <span
-          v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
-          class="no-redirect"
-          >{{ item.meta.title }}</span
-        >
-        <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
-      </el-breadcrumb-item>
-    </transition-group>
-  </el-breadcrumb>
+  <div class="way-breadcrumb">
+    <!--
+    <el-button
+      v-show="isBackButtonVisible"
+      class="back-btn"
+      icon="ArrowLeftBold"
+      @click="handleBack"
+    >
+      返回
+    </el-button>
+    -->
+    <el-breadcrumb separator="/">
+      <transition-group name="breadcrumb">
+        <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
+          <span
+            v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
+            class="no-redirect"
+            >{{ item.meta.title }}</span
+          >
+          <a v-else @click.prevent="handleLink(item)">{{ item.meta.title }}</a>
+        </el-breadcrumb-item>
+      </transition-group>
+    </el-breadcrumb>
+  </div>
 </template>
 
 <script setup>
-import { ref, watchEffect } from 'vue';
+import { ref, computed, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus';
 
 defineOptions({
   name: 'WBreadcrumb',
@@ -24,6 +37,9 @@ defineOptions({
 const route = useRoute();
 const router = useRouter();
 const levelList = ref([]);
+const isBackButtonVisible = computed(() => {
+  return levelList.value.length > 1;
+});
 
 function getBreadcrumb() {
   // only show routes with meta.title
@@ -38,6 +54,7 @@ function getBreadcrumb() {
     (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false,
   );
 }
+
 function isDashboard(route) {
   const name = route && route.name;
   if (!name) {
@@ -45,6 +62,11 @@ function isDashboard(route) {
   }
   return name.trim() === 'Index';
 }
+
+function handleBack() {
+  router.back();
+}
+
 function handleLink(item) {
   const { redirect, path } = item;
   if (redirect) {
@@ -64,16 +86,12 @@ watchEffect(() => {
 getBreadcrumb();
 </script>
 
-<style lang="scss" scoped>
-.app-breadcrumb.el-breadcrumb {
-  display: inline-block;
-  margin-left: 8px;
-  font-size: 14px;
-  line-height: 50px;
+<style lang="scss">
+@use '@way-ui/theme-chalk/src/breadcrumb';
+</style>
 
-  .no-redirect {
-    color: #97a8be;
-    cursor: text;
-  }
+<style lang="scss" scoped>
+.back-btn {
+  margin-right: 14px;
 }
 </style>

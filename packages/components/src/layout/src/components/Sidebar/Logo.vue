@@ -4,35 +4,43 @@
     :class="{ collapse: collapse }"
     :style="{
       backgroundColor:
-        sideTheme === 'theme-dark' ? variables.menuBackground : variables.menuLightBackground,
+        sideTheme === 'theme-dark'
+          ? 'var(--base-menu-background)'
+          : 'var(--base-menu-light-background)',
     }"
   >
     <transition name="sidebarLogoFade">
-      <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/">
+      <!-- <router-link v-if="collapse" key="collapse" class="sidebar-logo-link" to="/"> -->
+      <div v-if="collapse" key="collapse" class="sidebar-logo-link">
         <img v-if="logo" :src="logo" class="sidebar-logo" />
         <h1
           v-else
           class="sidebar-title"
           :style="{
             color:
-              sideTheme === 'theme-dark' ? variables.logoTitleColor : variables.logoLightTitleColor,
+              sideTheme === 'theme-dark'
+                ? 'var(--base-logo-title-color)'
+                : 'var(--base-logo-light-title-color)',
           }"
         >
           {{ title }}
         </h1>
-      </router-link>
-      <router-link v-else key="expand" class="sidebar-logo-link" to="/">
+      </div>
+      <!-- <router-link v-else key="expand" class="sidebar-logo-link" to="/"> -->
+      <div v-else key="expand" class="sidebar-logo-link">
         <img v-if="logo" :src="logo" class="sidebar-logo" />
         <h1
           class="sidebar-title"
           :style="{
             color:
-              sideTheme === 'theme-dark' ? variables.logoTitleColor : variables.logoLightTitleColor,
+              sideTheme === 'theme-dark'
+                ? 'var(--base-logo-title-color)'
+                : 'var(--base-logo-light-title-color)',
           }"
         >
           {{ title }}
         </h1>
-      </router-link>
+      </div>
     </transition>
   </div>
 </template>
@@ -40,7 +48,7 @@
 <script setup>
 import { computed } from 'vue';
 import { SESSION_KEYS } from '@way-ui/constants';
-import variables from '@/assets/styles/variables.module.scss';
+import { useGlobalConfig } from '@way-ui/components/src/config-provider';
 import logo from '@/assets/logo/logo.png';
 import useSettingsStore from '@/store/modules/settings';
 
@@ -51,17 +59,24 @@ defineProps({
   },
 });
 
-const title = sessionStorage.getItem(SESSION_KEYS.APP_TITLE) || import.meta.env.VITE_APP_TITLE;
+const { VITE_APP_TITLE } = useGlobalConfig('env').value;
+const title = sessionStorage.getItem(SESSION_KEYS.APP_TITLE) || VITE_APP_TITLE;
 const settingsStore = useSettingsStore();
 const sideTheme = computed(() => settingsStore.sideTheme);
 </script>
 
 <style lang="scss" scoped>
+/* stylelint-disable-next-line selector-class-pattern */
 .sidebarLogoFade-enter-active {
   transition: opacity 1.5s;
 }
 
-.sidebarLogoFade-enter,
+/* stylelint-disable-next-line selector-class-pattern */
+.sidebarLogoFade-enter {
+  opacity: 0;
+}
+
+/* stylelint-disable-next-line selector-class-pattern */
 .sidebarLogoFade-leave-to {
   opacity: 0;
 }

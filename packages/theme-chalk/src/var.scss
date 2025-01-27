@@ -1,0 +1,42 @@
+@use 'common/var' as *;
+@use 'mixins/var' as *;
+
+:root {
+  @include set-css-var-value('color-white', $color-white);
+  @include set-css-var-value('color-black', $color-black);
+
+  // get rgb
+  @each $type in (primary, success, warning, danger, error, info) {
+    @include set-css-color-rgb($type);
+  }
+
+  // --way-color-#{$type}
+  @include set-css-var-value(('color', primary), $color-primary);
+  @include set-css-var-value(('color', success), $color-success);
+  @include set-css-var-value(('color', warning), $color-warning);
+  @include set-css-var-value(('color', danger), $color-danger);
+  @include set-css-var-value(('color', error), $color-error);
+  @include set-css-var-value(('color', info), $color-info);
+  @include set-css-var-value(('color', 'violet'), $color-violet);
+
+  // --way-color-#{$type}-{$i}
+  @each $type in (primary, success, warning, danger, error, info) {
+    @include set-css-color-type($colors, $type);
+  }
+
+  @each $type in ('violet') {
+    @include set-css-color-type($colors, $type);
+  }
+
+  // Typography
+  @include set-component-css-var('font-size', $font-size);
+
+  // color-scheme
+  @include set-component-css-var('bg-color', $bg-color);
+  @include set-component-css-var('text-color', $text-color);
+  @include set-component-css-var('border-color', $border-color);
+  @include set-component-css-var('fill-color', $fill-color);
+
+  // Disable base
+  @include set-component-css-var('disabled', $disabled);
+}

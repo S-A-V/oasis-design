@@ -1,6 +1,6 @@
 {
   "name": "@way-ui/components",
-  "version": "0.0.52",
+  "version": "0.1.99",
   "description": "",
   "type": "module",
   "main": "index.js",
@@ -14,11 +14,16 @@
     "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
   },
   "dependencies": {
-    "@way-ui/constants": "^0.0.3",
-    "@way-ui/internal-utils": "^0.0.1",
-    "@way-ui/utils": "^0.0.9",
-    "element-plus": "2.7.6",
-    "vue": "3.4.31",
-    "vue-router": "4.4.0"
+    "@element-plus/icons-vue": "2.3.1",
+    "@vueuse/core": "10.11.1",
+    "@way-ui/constants": "0.1.0",
+    "@way-ui/internal-utils": "0.1.0",
+    "@way-ui/theme-chalk": "0.0.56",
+    "@way-ui/utils": "0.1.7",
+    "element-plus": "2.9.3",
+    "fuse.js": "6.6.2",
+    "js-cookie": "3.0.5",
+    "vue": "3.5.13",
+    "vue-router": "4.4.5"
   }
 }

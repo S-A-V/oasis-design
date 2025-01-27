@@ -1,28 +1,24 @@
 <template>
   <el-menu :default-active="activeMenu" mode="horizontal" :ellipsis="false" @select="handleSelect">
     <template v-for="(item, index) in topMenus">
-      <el-menu-item
-        v-if="index < visibleNumber"
-        :key="index"
-        :style="{ '--theme': theme }"
-        :index="item.path"
-      >
-        <svg-icon
+      <el-menu-item v-if="index < visibleNumber" :key="index" :index="item.path">
+        <w-svg-icon
           v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-          :icon-class="item.meta.icon"
+          :name="item.meta.icon"
         />
         {{ item.meta.title }}
       </el-menu-item>
     </template>
 
     <!-- 顶部菜单超出数量折叠 -->
-    <el-sub-menu v-if="topMenus.length > visibleNumber" :style="{ '--theme': theme }" index="more">
+    <el-sub-menu v-if="topMenus.length > visibleNumber" index="more">
       <template #title>更多菜单</template>
       <template v-for="(item, index) in topMenus">
         <el-menu-item v-if="index >= visibleNumber" :key="index" :index="item.path">
-          <svg-icon
+          <w-svg-icon
             v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-            :icon-class="item.meta.icon"
+            :name="item.meta.icon"
+            :style="{ marginRight: '6px' }"
           />
           {{ item.meta.title }}
         </el-menu-item>
@@ -32,29 +28,28 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, getCurrentInstance } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
-import useSettingsStore from '@/store/modules/settings';
+import { ref, computed, onMounted, onBeforeUnmount, getCurrentInstance, toRef } from 'vue';
+import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus';
+import { useGlobalConfig } from '@way-ui/components/src/config-provider';
+import { WSvgIcon } from '../../../../svg-icon';
 
 defineOptions({
   name: 'TopNav',
 });
 
-const { proxy } = getCurrentInstance();
+const instance = getCurrentInstance();
+const { proxy } = instance;
+const { $router } = instance.appContext.config.globalProperties;
+const router = toRef($router);
 // 顶部栏初始数
 const visibleNumber = ref(null);
 // 当前激活菜单的 index
 const currentIndex = ref(null);
 
-const settingsStore = useSettingsStore();
-const route = useRoute();
-const router = useRouter();
-
-// 主题颜色
-const theme = computed(() => settingsStore.theme);
-
 // 顶部显示菜单
 const topMenus = computed(() => {
+  /**
+   * 
   let topMenus = [
     {
       name: 'Index',
@@ -74,12 +69,13 @@ const topMenus = computed(() => {
       parentPath: '/tool',
     },
   ];
-  return topMenus;
+   */
+  return useGlobalConfig('commonMenus').value || [];
 });
 
 // 默认激活的菜单
 const activeMenu = computed(() => {
-  const path = route.path;
+  const path = router.value.currentRoute.path;
   let activePath = path;
   return activePath;
 });
@@ -98,9 +94,9 @@ function handleSelect(key, keyPath) {
   } else {
     if (route && route.query) {
       let query = JSON.parse(route.query);
-      router.push({ path: key, query: query });
+      router.value.push({ path: key, query: query });
     } else {
-      router.push({ path: key });
+      router.value.push({ path: key });
     }
   }
 }
@@ -118,6 +114,19 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
+// .top-nav-container.el-menu--horizontal > .el-menu-item.is-active,
+// .el-menu--horizontal > .el-sub-menu.is-active .el-submenu__title {
+// color: #{'var(--theme)'} !important;
+
+// color: #303133;
+// border-color: #{'var(--theme)'};
+// border-bottom: 1px solid #{'var(--theme)'} !important;
+
+// .w-svg-icon {
+//   color: var(--el-menu-active-color);
+// }
+// }
+
 .top-nav-container {
   &.el-menu {
     height: unset;
@@ -125,59 +134,69 @@ onMounted(() => {
     border-bottom: 0;
   }
 
-  &.el-menu--horizontal > .el-menu-item {
-    float: left;
-    height: 32px !important;
-    padding: 0 16px !important;
-    margin: 0 10px !important;
-    line-height: 30px !important;
-    color: #101010 !important;
-    border: 1px solid transparent;
-    border-radius: 6px;
+  &.el-menu--horizontal {
+    > .el-menu-item {
+      float: left;
+      height: 32px !important;
+      padding: 0 16px !important;
+      margin: 0 10px !important;
+      line-height: 30px !important;
+
+      // color: #101010 !important;
+      border: 1px solid transparent;
+      border-radius: 6px;
+
+      .w-svg-icon {
+        margin-right: 6px;
+        color: #666;
+      }
+
+      &.is-active {
+        background-color: var(--el-menu-hover-bg-color);
+        border: 1px solid var(--el-menu-active-color);
+
+        .w-svg-icon {
+          color: var(--el-menu-active-color);
+        }
+      }
+
+      &:not(.is-disabled):focus,
+      &:not(.is-disabled):hover {
+        .w-svg-icon {
+          color: var(--el-menu-active-color);
+        }
+      }
+    }
+
+    > .el-submenu {
+      .el-submenu__title:hover {
+        .w-svg-icon {
+          color: var(--el-menu-active-color);
+        }
+      }
+    }
+
+    > .el-sub-menu {
+      .el-sub-menu__title {
+        float: left;
+        height: 32px !important;
+        padding: 0 5px !important;
+        margin: 0 10px !important;
+        line-height: 32px !important;
+        border-bottom-width: 0;
+
+        // color: #999093 !important;
+      }
+    }
+
+    .el-sub-menu {
+      .el-sub-menu__icon-arrow {
+        position: static;
+        margin-top: 0;
+        margin-left: 8px;
+        vertical-align: middle;
+      }
+    }
   }
-}
-
-.top-nav-container.el-menu--horizontal > .el-menu-item.is-active,
-.el-menu--horizontal > .el-sub-menu.is-active .el-submenu__title {
-  color: #{'var(--theme)'} !important;
-
-  // color: #303133;
-  border-color: #{'var(--theme)'};
-  border-bottom: 1px solid #{'var(--theme)'} !important;
-
-  .svg-icon {
-    color: #{'var(--theme)'};
-  }
-}
-
-/* sub-menu item */
-.top-nav-container.el-menu--horizontal > .el-sub-menu .el-sub-menu__title {
-  float: left;
-  height: 50px !important;
-  padding: 0 5px !important;
-  margin: 0 10px !important;
-  line-height: 50px !important;
-  color: #999093 !important;
-}
-
-/* 背景色隐藏 */
-.top-nav-container.el-menu--horizontal > .el-menu-item:not(.is-disabled):focus,
-.top-nav-container.el-menu--horizontal > .el-menu-item:not(.is-disabled):hover,
-.top-nav-container.el-menu--horizontal > .el-submenu .el-submenu__title:hover {
-  background-color: #fff !important;
-}
-
-/* 图标右间距 */
-.top-nav-container .svg-icon {
-  margin-right: 6px;
-  color: #666;
-}
-
-/* topmenu more arrow */
-.top-nav-container .el-sub-menu .el-sub-menu__icon-arrow {
-  position: static;
-  margin-top: 0;
-  margin-left: 8px;
-  vertical-align: middle;
 }
 </style>

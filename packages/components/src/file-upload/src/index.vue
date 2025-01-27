@@ -52,6 +52,8 @@
 
 <script setup>
 import { ref, computed, watch, getCurrentInstance } from 'vue';
+import { ElUpload, ElButton, ElLink } from 'element-plus';
+import { useGlobalConfig } from '@way-ui/components/src/config-provider';
 
 defineOptions({
   name: 'WFileUpload',
@@ -82,11 +84,12 @@ const props = defineProps({
 });
 
 const { proxy } = getCurrentInstance();
+const { VITE_APP_BASE_URL, VITE_APP_BASE_API } = useGlobalConfig('env').value;
 // eslint-disable-next-line vue/valid-define-emits
 const emit = defineEmits();
 const number = ref(0);
 const uploadList = ref([]);
-const uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + '/file/upload'); // 上传文件服务器地址
+const uploadFileUrl = ref(VITE_APP_BASE_URL + VITE_APP_BASE_API + '/file/upload'); // 上传文件服务器地址
 const headers = ref({ Authorization: 'Bearer ' + proxy.$token.get() });
 const fileList = ref([]);
 const showTip = computed(() => props.isShowTip && (props.fileType || props.fileSize));
@@ -215,6 +218,7 @@ function listToString(list, separator) {
   border: 1px solid #e4e7ed;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .upload-file-list .ele-upload-list__item-content {
   display: flex;
   align-items: center;
@@ -222,6 +226,7 @@ function listToString(list, separator) {
   color: inherit;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .ele-upload-list__item-content-action .el-link {
   margin-right: 10px;
 }

@@ -42,6 +42,7 @@
 <script setup>
 import { ref, computed, watch, nextTick, getCurrentInstance, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { Back, Close, Right, CircleClose, RefreshRight } from '@element-plus/icons-vue';
 import ScrollPane from './ScrollPane';
 import { getNormalPath } from '@way-ui/utils/way';
 import useTagsViewStore from '@/store/modules/tagsView';
@@ -271,7 +272,7 @@ function handleScroll() {
 .tags-view-container {
   width: 100%;
   height: 44px;
-  background: #fff;
+  background: var(--way-color-white);
   border-bottom: 1px solid #d8dce5;
 
   // box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.12), 0 0 3px 0 rgba(0, 0, 0, 0.04);
@@ -288,7 +289,7 @@ function handleScroll() {
       line-height: 26px;
       color: #495060;
       cursor: pointer;
-      background: #fff;
+      background: var(--way-color-white);
       border: 1px solid #dcdfe6;
       border-radius: 4px;
 
@@ -301,9 +302,8 @@ function handleScroll() {
       }
 
       &.active {
-        // background-color: #42b983;
-        // color: #fff;
-        border-color: #42b983;
+        color: var(--way-color-primary);
+        border-color: var(--way-color-primary);
 
         &::before {
           position: relative;
@@ -311,8 +311,9 @@ function handleScroll() {
           width: 8px;
           height: 8px;
           margin-right: 5px;
+
           // content: "";
-          background: #fff;
+          background: var(--way-color-white);
           border-radius: 50%;
         }
       }
@@ -328,7 +329,7 @@ function handleScroll() {
     font-weight: 400;
     color: #333;
     list-style-type: none;
-    background: #fff;
+    background: var(--way-color-white);
     border-radius: 4px;
     box-shadow: 2px 2px 3px 0 rgb(0 0 0 / 30%);
 
@@ -346,7 +347,7 @@ function handleScroll() {
 </style>
 
 <style lang="scss">
-//reset element css of el-icon-close
+// reset element css of el-icon-close
 .tags-view-wrapper {
   .tags-view-item {
     .el-icon-close {
@@ -368,7 +369,7 @@ function handleScroll() {
       &:hover {
         width: 12px !important;
         height: 12px !important;
-        color: #fff;
+        color: var(--way-color-white);
         background-color: #b4bccc;
       }
     }

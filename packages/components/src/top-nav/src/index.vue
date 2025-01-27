@@ -7,9 +7,9 @@
         :style="{ '--theme': theme }"
         :index="item.path"
       >
-        <svg-icon
+        <w-svg-icon
           v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-          :icon-class="item.meta.icon"
+          :name="item.meta.icon"
         />
         {{ item.meta.title }}
       </el-menu-item>
@@ -20,9 +20,9 @@
       <template #title>更多菜单</template>
       <template v-for="(item, index) in topMenus">
         <el-menu-item v-if="index >= visibleNumber" :key="index" :index="item.path">
-          <svg-icon
+          <w-svg-icon
             v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-            :icon-class="item.meta.icon"
+            :name="item.meta.icon"
           />
           {{ item.meta.title }}
         </el-menu-item>
@@ -34,10 +34,12 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
+import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus';
 import { constantRoutes } from '@/router';
 import useAppStore from '@/store/modules/app';
 import useSettingsStore from '@/store/modules/settings';
 import usePermissionStore from '@/store/modules/permission';
+import { WSvgIcon } from '../../svg-icon';
 
 defineOptions({
   name: 'WTopNav',
@@ -208,7 +210,7 @@ onMounted(() => {
 }
 
 /* 图标右间距 */
-.topmenu-container .svg-icon {
+.topmenu-container .w-svg-icon {
   margin-right: 4px;
 }
 

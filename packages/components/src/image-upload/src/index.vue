@@ -39,6 +39,9 @@
 
 <script setup>
 import { ref, computed, watch, getCurrentInstance } from 'vue';
+import { ElIcon, ElUpload, ElDialog } from 'element-plus';
+import { Plus } from '@element-plus/icons-vue';
+import { useGlobalConfig } from '@way-ui/components/src/config-provider';
 
 defineOptions({
   name: 'WImageUpload',
@@ -69,14 +72,15 @@ const props = defineProps({
 });
 
 const { proxy } = getCurrentInstance();
+const { VITE_APP_BASE_URL, VITE_APP_BASE_API } = useGlobalConfig('env').value;
 // eslint-disable-next-line vue/valid-define-emits
 const emit = defineEmits();
 const number = ref(0);
 const uploadList = ref([]);
 const dialogImageUrl = ref('');
 const dialogVisible = ref(false);
-const baseUrl = import.meta.env.VITE_APP_BASE_API;
-const uploadImgUrl = ref(import.meta.env.VITE_APP_BASE_API + '/file/upload'); // 上传的图片服务器地址
+const baseUrl = VITE_APP_BASE_URL + VITE_APP_BASE_API;
+const uploadImgUrl = ref(VITE_APP_BASE_URL + VITE_APP_BASE_API + '/file/upload'); // 上传的图片服务器地址
 const headers = ref({ Authorization: 'Bearer ' + proxy.$token.get() });
 const fileList = ref([]);
 const showTip = computed(() => props.isShowTip && (props.fileType || props.fileSize));

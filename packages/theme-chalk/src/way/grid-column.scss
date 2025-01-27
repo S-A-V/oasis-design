@@ -1,0 +1,9 @@
+@for $i from 1 through 12 {
+  .col-span-#{$i} {
+    grid-column: span $i / span $i;
+  }
+}
+
+.col-span-full {
+  grid-column: 1 / -1;
+}

@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ hidden: hidden }" class="pagination-container">
+  <div :class="{ hidden: hidden }" class="w-pagination-container">
     <el-pagination
       v-model:current-page="currentPage"
       v-model:page-size="pageSize"
@@ -16,6 +16,7 @@
 
 <script setup>
 import { computed } from 'vue';
+import { ElPagination } from 'element-plus';
 import { scrollTo } from '@way-ui/utils/scroll-to';
 
 defineOptions({
@@ -48,7 +49,7 @@ const props = defineProps({
   },
   layout: {
     type: String,
-    default: 'total, sizes, prev, pager, next, jumper',
+    default: ['sizes', 'prev', 'pager', 'next', 'total'].join(', '),
   },
   background: {
     type: Boolean,
@@ -98,13 +99,41 @@ function handleCurrentChange(val) {
 }
 </script>
 
-<style scoped>
-.pagination-container {
-  padding: 32px 16px;
-  background: #fff;
+<style lang="scss">
+.w-pagination-container {
+  position: relative;
+  padding: 8px 0;
+
+  &.hidden {
+    display: none;
+  }
+
+  .el-input {
+    &:not(.el-input--small, .el-input--large) {
+      --el-input-height: 28px;
+    }
+  }
+
+  .el-select {
+    &:not(.el-select--small, .el-select--large) {
+      .el-select__wrapper {
+        min-height: 28px;
+      }
+    }
+  }
+
+  .el-pagination {
+    display: flex;
+    justify-content: center;
+  }
 }
 
-.pagination-container.hidden {
-  display: none;
+@media (width <= 768px) {
+  .w-pagination-container .el-pagination {
+    > .el-pagination__jump,
+    > .el-pagination__sizes {
+      display: none;
+    }
+  }
 }
 </style>

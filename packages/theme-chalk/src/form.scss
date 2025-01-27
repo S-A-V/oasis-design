@@ -1,0 +1,7 @@
+@use 'mixins/mixins' as *;
+
+.el-form-item__label {
+  padding-right: 4px;
+  font-weight: normal;
+  color: var(--way-color-info-1);
+}

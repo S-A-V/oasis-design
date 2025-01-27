@@ -3,13 +3,15 @@ import { ElLoading, ElMessage } from 'element-plus';
 import { saveAs } from 'file-saver';
 import { ERROR_CODE_MESSAGES } from '@way-ui/constants';
 import { blobValidate } from '@way-ui/utils/way';
+import { useGlobalConfig } from '@way-ui/components/src/config-provider';
 import $token from './token';
 
-const baseURL = import.meta.env.VITE_APP_BASE_API;
 let downloadLoadingInstance;
 
 export default {
   zip({ url: requestUrl, data, name }) {
+    const { VITE_APP_BASE_URL, VITE_APP_BASE_API } = useGlobalConfig('env').value;
+    const baseURL = VITE_APP_BASE_URL + VITE_APP_BASE_API;
     let url = baseURL + requestUrl;
     downloadLoadingInstance = ElLoading.service({
       text: '正在下载数据，请稍候',

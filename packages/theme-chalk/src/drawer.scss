@@ -1,0 +1,38 @@
+@use 'mixins/mixins' as *;
+
+.el-drawer {
+  --el-drawer-padding-primary: 0;
+
+  &__title {
+    font-size: var(--el-font-size-large);
+  }
+
+  &__close-btn {
+    color: var(--el-color-info-light-3);
+  }
+
+  &__header {
+    height: 64px;
+    padding: 0 16px;
+    margin-bottom: 0;
+    color: var(--el-text-color-primary);
+    border-bottom: 1px solid var(--way-color-info-7);
+  }
+
+  &__body {
+    padding: 0;
+  }
+
+  &__footer {
+    padding: 16px 24px;
+    border-top: 1px solid var(--way-color-info-7);
+
+    .el-button {
+      min-width: 104px;
+
+      + .el-button {
+        margin-left: 16px;
+      }
+    }
+  }
+}

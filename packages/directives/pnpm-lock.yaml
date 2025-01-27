@@ -9,14 +9,14 @@ importers:
   .:
     dependencies:
       '@way-ui/internal-utils':
-        specifier: ^0.0.1
-        version: 0.0.1
+        specifier: 0.1.0
+        version: 0.1.0
 
 packages:
 
-  '@way-ui/internal-utils@0.0.1':
-    resolution: {integrity: sha512-ZwCAcJGZ+T/YL94aZkQfX06K8SqfpBIhRQPZ5m6nruEb3Wmpsvc+pdUk0T/YhG3ds45Dslkro1gvCyEhUtvSCA==}
+  '@way-ui/internal-utils@0.1.0':
+    resolution: {integrity: sha512-uwnq0pZK+FERqSpScfD6b4WAkyk+sDIbt+x33l+TODV8PCJWR3z9XNsapvxI1sLO9Zc1whRcBpvo2n42m1mOYw==}
 
 snapshots:
 
-  '@way-ui/internal-utils@0.0.1': {}
+  '@way-ui/internal-utils@0.1.0': {}

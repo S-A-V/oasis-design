@@ -1,6 +1,6 @@
 {
   "name": "way-ui",
-  "version": "0.0.63",
+  "version": "0.1.117",
   "description": "",
   "type": "module",
   "main": "index.js",
@@ -14,11 +14,11 @@
     "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
   },
   "dependencies": {
-    "@way-ui/components": "^0.0.52",
-    "@way-ui/constants": "^0.0.3",
-    "@way-ui/directives": "^0.0.4",
-    "@way-ui/internal-utils": "^0.0.1",
-    "@way-ui/utils": "^0.0.9",
-    "js-cookie": "3.0.5"
+    "@way-ui/components": "0.1.99",
+    "@way-ui/constants": "0.1.0",
+    "@way-ui/directives": "0.1.0",
+    "@way-ui/internal-utils": "0.1.0",
+    "@way-ui/plugins": "0.0.45",
+    "@way-ui/utils": "0.1.7"
   }
 }

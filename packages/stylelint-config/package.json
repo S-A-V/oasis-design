@@ -1,6 +1,6 @@
 {
   "name": "@way-ui/stylelint-config",
-  "version": "0.0.4",
+  "version": "0.1.2",
   "description": "",
   "type": "module",
   "main": "index.mjs",

@@ -3,8 +3,6 @@ import pluginJs from '@eslint/js';
 import pluginVue from 'eslint-plugin-vue';
 import configPrettier from 'eslint-config-prettier';
 
-import autoImport from './.eslintrc-auto-import.mjs';
-
 export default [
   {
     files: ['**/*.{js,mjs,cjs,vue}'],
@@ -14,7 +12,6 @@ export default [
       globals: {
         ...globals.browser,
         ...globals.node,
-        ...autoImport.globals,
       },
     },
   },

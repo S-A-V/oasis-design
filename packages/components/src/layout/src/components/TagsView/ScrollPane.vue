@@ -11,6 +11,7 @@
 
 <script setup>
 import { ref, computed, getCurrentInstance, onMounted, onBeforeUnmount } from 'vue';
+import { ElScrollbar } from 'element-plus';
 import useTagsViewStore from '@/store/modules/tagsView';
 
 const tagAndTagSpacing = ref(4);

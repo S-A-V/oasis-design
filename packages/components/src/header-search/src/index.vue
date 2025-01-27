@@ -1,6 +1,6 @@
 <template>
   <div :class="{ show: show }" class="header-search">
-    <svg-icon class-name="search-icon" icon-class="search" @click.stop="click" />
+    <w-svg-icon class="search-icon" name="search" @click.stop="click" />
     <el-select
       ref="headerSearchSelectRef"
       v-model="search"
@@ -26,8 +26,10 @@
 import { ref, computed, watch, watchEffect, nextTick, onMounted, getCurrentInstance } from 'vue';
 import { useRouter } from 'vue-router';
 import Fuse from 'fuse.js';
+import { ElSelect, ElOption } from 'element-plus';
 import { getNormalPath } from '@way-ui/utils/way';
 import usePermissionStore from '@/store/modules/permission';
+import { WSvgIcon } from '../../svg-icon';
 
 defineOptions({
   name: 'WHeaderSearch',

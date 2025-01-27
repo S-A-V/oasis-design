@@ -1,13 +1,18 @@
 # way-ui
 
-- @way-ui/commitlint-config
-- @way-ui/components
-- @way-ui/constants
-- @way-ui/directives
-- @way-ui/eslint-config
-- @way-ui/internal-utils
-- @way-ui/lint-staged-config
-- @way-ui/prettier-config
-- @way-ui/stylelint-config
-- @way-ui/utils
+- @way-ui
+  - commitlint-config
+  - components
+  - constants
+  - directives
+  - eslint-config
+  - internal-utils
+  - lint-staged-config
+  - plugins
+  - prettier-config
+  - shared-libs
+  - stylelint-config
+  - theme-chalk
+  - unplugin
+  - utils
 - way-ui

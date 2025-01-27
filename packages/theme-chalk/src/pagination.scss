@@ -1,0 +1,23 @@
+@use 'mixins/mixins' as *;
+
+.el-pagination {
+  --el-pagination-font-size: 12px;
+  --el-pagination-button-color: var(--el-text-color-regular);
+  --el-pagination-button-width: 28px;
+  --el-pagination-button-height: 28px;
+  --el-pagination-button-bg-color: var(--el-fill-color-blank);
+
+  button {
+    border: 1px solid var(--el-border-color-light);
+  }
+}
+
+.el-pager {
+  li {
+    border: 1px solid var(--el-border-color-light);
+
+    &.is-active {
+      border-color: var(--el-color-primary);
+    }
+  }
+}

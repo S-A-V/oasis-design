@@ -1,0 +1,22 @@
+@use 'mixins/mixins' as *;
+
+.el-select {
+  --el-input-text-color: var(--el-text-color-primary);
+}
+
+.el-select__wrapper {
+  &.is-disabled {
+    background-color: var(--el-disabled-bg-color);
+  }
+}
+
+.el-select-dropdown__item {
+  height: 32px;
+  padding-left: 16px;
+  line-height: 32px;
+
+  &.is-hovering {
+    color: var(--el-color-primary);
+    background-color: var(--el-fill-color-lighter);
+  }
+}

@@ -12,7 +12,7 @@
           :index="resolvePath(onlyOneChild.path)"
           :class="{ 'submenu-title-noDropdown': !isNest }"
         >
-          <svg-icon :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+          <w-svg-icon :name="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
           <template #title>
             <span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">
               {{ onlyOneChild.meta.title }}
@@ -24,7 +24,7 @@
 
     <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" teleported>
       <template v-if="item.meta" #title>
-        <svg-icon :icon-class="item.meta && item.meta.icon" />
+        <w-svg-icon :name="item.meta && item.meta.icon" />
         <span class="menu-title" :title="hasTitle(item.meta.title)">
           {{ item.meta.title }}
         </span>
@@ -44,6 +44,8 @@
 
 <script setup>
 import { ref, getCurrentInstance } from 'vue';
+import { ElMenuItem, ElSubMenu } from 'element-plus';
+import { WSvgIcon } from '../../../../svg-icon';
 import AppLink from './Link';
 import { getNormalPath } from '@way-ui/utils/way';
 

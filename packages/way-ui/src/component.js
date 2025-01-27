@@ -1,38 +1,53 @@
 import {
   WBreadcrumb,
-  WCronTab,
+  WConfigProvider,
+  WContainer,
   WDictTag,
   WFileUpload,
+  WFormContainer,
+  WFullScreen,
   WHamburger,
   WHeaderSearch,
   WImagePreview,
   WImageUpload,
   WPagination,
   WRightToolbar,
-  WScreenfull,
+  WSearchContainer,
   WSizeSelect,
+  WSvgIcon,
+  WTableContainer,
   WTopNav,
   WTreeSelect,
   // 以下组件不会全局安装
+  // WCronTab,
   WLayout,
   WInnerLink,
-} from "@way-ui/components";
+} from '@way-ui/components';
 
 export default [
   WBreadcrumb,
-  WCronTab,
+  WConfigProvider,
+  WContainer,
   WDictTag,
   WFileUpload,
+  WFormContainer,
+  WFullScreen,
   WHamburger,
   WHeaderSearch,
   WImagePreview,
   WImageUpload,
   WPagination,
   WRightToolbar,
-  WScreenfull,
+  WSearchContainer,
   WSizeSelect,
+  WSvgIcon,
+  WTableContainer,
   WTopNav,
   WTreeSelect,
 ];
 
-export { WLayout, WInnerLink };
+export {
+  // WCronTab,
+  WLayout,
+  WInnerLink,
+};

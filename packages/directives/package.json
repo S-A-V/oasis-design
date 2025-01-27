@@ -1,6 +1,6 @@
 {
   "name": "@way-ui/directives",
-  "version": "0.0.4",
+  "version": "0.1.0",
   "description": "",
   "type": "module",
   "main": "index.js",
@@ -14,6 +14,6 @@
     "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
   },
   "dependencies": {
-    "@way-ui/internal-utils": "^0.0.1"
+    "@way-ui/internal-utils": "0.1.0"
   }
 }

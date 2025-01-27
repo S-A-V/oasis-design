@@ -12,6 +12,7 @@ import {
 // import auth from './auth';
 import cache from './cache';
 import download from './download';
+import file from './file';
 import modal from './modal';
 import { permission, rolePermission } from './permission';
 import tab from './tab';
@@ -24,6 +25,8 @@ import validator from './validator';
 export const $cache = withInstallFunction(cache, '$cache');
 // 下载文件
 export const $download = withInstallFunction(download, '$download');
+// 文件
+export const $file = withInstallFunction(file, '$file');
 // 模态框对象
 export const $modal = withInstallFunction(modal, '$modal');
 // 权限校验

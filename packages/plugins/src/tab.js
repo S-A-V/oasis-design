@@ -1,9 +1,13 @@
 import useTagsViewStore from '@/store/modules/tagsView';
-import router from '@/router';
+
+function getRouterInstance() {
+  return this._context.config.globalProperties.$router;
+}
 
 export default {
   // 刷新当前tab页签
   refreshPage(obj) {
+    const router = getRouterInstance.call(this);
     const { path, query, matched } = router.currentRoute.value;
     if (obj === undefined) {
       matched.forEach((m) => {
@@ -26,6 +30,7 @@ export default {
   },
   // 关闭当前tab页签，打开新页签
   closeOpenPage(obj) {
+    const router = getRouterInstance.call(this);
     useTagsViewStore().delView(router.currentRoute.value);
     if (obj !== undefined) {
       return router.push(obj);
@@ -33,6 +38,7 @@ export default {
   },
   // 关闭指定tab页签
   closePage(obj) {
+    const router = getRouterInstance.call(this);
     if (obj === undefined) {
       return useTagsViewStore()
         .delView(router.currentRoute.value)
@@ -52,18 +58,22 @@ export default {
   },
   // 关闭左侧tab页签
   closeLeftPage(obj) {
+    const router = getRouterInstance.call(this);
     return useTagsViewStore().delLeftTags(obj || router.currentRoute.value);
   },
   // 关闭右侧tab页签
   closeRightPage(obj) {
+    const router = getRouterInstance.call(this);
     return useTagsViewStore().delRightTags(obj || router.currentRoute.value);
   },
   // 关闭其他tab页签
   closeOtherPage(obj) {
+    const router = getRouterInstance.call(this);
     return useTagsViewStore().delOthersViews(obj || router.currentRoute.value);
   },
   // 打开tab页签
   openPage(url) {
+    const router = getRouterInstance.call(this);
     return router.push(url);
   },
   // 修改tab页签

@@ -85,16 +85,21 @@ const workday = ref(1);
 const checkboxList = ref([]);
 const checkCopy = ref([1]);
 const cycleTotal = computed(() => {
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   cycle01.value = props.check(cycle01.value, 1, 30);
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   cycle02.value = props.check(cycle02.value, cycle01.value + 1, 31);
   return cycle01.value + '-' + cycle02.value;
 });
 const averageTotal = computed(() => {
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   average01.value = props.check(average01.value, 1, 30);
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   average02.value = props.check(average02.value, 1, 31 - average01.value);
   return average01.value + '/' + average02.value;
 });
 const workdayTotal = computed(() => {
+  // eslint-disable-next-line vue/no-side-effects-in-computed-properties
   workday.value = props.check(workday.value, 1, 31);
   return workday.value + 'W';
 });

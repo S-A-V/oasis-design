@@ -1,0 +1,17 @@
+@use 'mixins/mixins' as *;
+
+.el-input-group__append,
+.el-input-group__prepend {
+  background-color: var(--way-color-primary-9);
+}
+
+.el-input {
+  --el-input-text-color: var(--el-text-color-primary);
+
+  &.is-disabled {
+    .el-input-group__append,
+    .el-input-group__prepend {
+      background-color: var(--el-disabled-bg-color);
+    }
+  }
+}
