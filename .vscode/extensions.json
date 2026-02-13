@@ -1,0 +1,14 @@
+{
+  "recommendations": [
+    "formulahendry.auto-rename-tag",
+    "wmaurer.change-case",
+    "streetsidesoftware.code-spell-checker",
+    "editorconfig.editorconfig",
+    "dbaeumer.vscode-eslint",
+    "davidanson.vscode-markdownlint",
+    "esbenp.prettier-vscode",
+    "stylelint.vscode-stylelint",
+    "bradlc.vscode-tailwindcss",
+    "vue.volar"
+  ]
+}

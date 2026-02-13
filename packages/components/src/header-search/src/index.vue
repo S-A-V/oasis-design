@@ -1,6 +1,6 @@
 <template>
   <div :class="{ show: show }" class="header-search">
-    <svg-icon class-name="search-icon" icon-class="search" @click.stop="click" />
+    <w-svg-icon class="search-icon" name="search" @click.stop="click" />
     <el-select
       ref="headerSearchSelectRef"
       v-model="search"
@@ -23,17 +23,19 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, watchEffect, nextTick, onMounted, getCurrentInstance } from 'vue';
+import { ref, computed, watch, watchEffect, nextTick, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import Fuse from 'fuse.js';
+import { ElSelect, ElOption } from 'element-plus';
+import { $validator } from '@way-ui/plugins';
 import { getNormalPath } from '@way-ui/utils/way';
-import usePermissionStore from '@/store/modules/permission';
+import { useGlobalConfig } from '@way-ui/hooks';
+import { WSvgIcon } from '../../svg-icon';
 
 defineOptions({
   name: 'WHeaderSearch',
 });
 
-const { proxy } = getCurrentInstance();
 const search = ref('');
 const options = ref([]);
 const searchPool = ref([]);
@@ -41,7 +43,10 @@ const show = ref(false);
 const fuse = ref(undefined);
 const headerSearchSelectRef = ref(null);
 const router = useRouter();
-const routes = computed(() => usePermissionStore().routes);
+const routes = computed(() => {
+  const stores = useGlobalConfig('stores');
+  return stores.value.permission.routes;
+});
 
 function click() {
   show.value = !show.value;
@@ -57,7 +62,7 @@ function close() {
 function change(val) {
   const path = val.path;
   const query = val.query;
-  if (proxy.$validator.isHttp(path)) {
+  if ($validator.isHttp(path)) {
     // http(s):// 路径新窗口打开
     const pindex = path.indexOf('http');
     window.open(path.substr(pindex, path.length), '_blank');
@@ -106,7 +111,7 @@ function generateRoutes(routes, basePath = '', prefixTitle = []) {
     }
     const p = r.path.length > 0 && r.path[0] === '/' ? r.path : '/' + r.path;
     const data = {
-      path: !proxy.$validator.isHttp(r.path) ? getNormalPath(basePath + p) : r.path,
+      path: !$validator.isHttp(r.path) ? getNormalPath(basePath + p) : r.path,
       title: [...prefixTitle],
     };
 

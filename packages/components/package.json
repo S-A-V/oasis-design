@@ -1,24 +1,55 @@
 {
   "name": "@way-ui/components",
-  "version": "0.0.52",
-  "description": "",
+  "version": "0.2.137",
+  "description": "Components for Way UI",
   "type": "module",
   "main": "index.js",
+  "module": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "publishConfig": {
-    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
-  },
   "dependencies": {
-    "@way-ui/constants": "^0.0.3",
-    "@way-ui/internal-utils": "^0.0.1",
-    "@way-ui/utils": "^0.0.9",
-    "element-plus": "2.7.6",
-    "vue": "3.4.31",
-    "vue-router": "4.4.0"
+    "@element-plus/icons-vue": "2.3.1",
+    "echarts": "^5.5.1",
+    "fuse.js": "6.6.2",
+    "vue-echarts": "7.0.3"
+  },
+  "devDependencies": {
+    "@vueuse/core": "^10.11.1",
+    "@way-ui/constants": "workspace:*",
+    "@way-ui/hooks": "workspace:*",
+    "@way-ui/internal-utils": "workspace:*",
+    "@way-ui/plugins": "workspace:*",
+    "@way-ui/shared-libs": "workspace:*",
+    "@way-ui/stores": "workspace:*",
+    "@way-ui/utils": "workspace:*",
+    "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
+    "element-plus": "catalog:",
+    "js-cookie": "^3.0.5",
+    "lodash-es": "^4.17.21",
+    "vue": "^3.5.13",
+    "vue-router": "^4.4.5"
+  },
+  "peerDependencies": {
+    "@vueuse/core": "^10.11.1",
+    "@way-ui/constants": "workspace:*",
+    "@way-ui/hooks": "workspace:*",
+    "@way-ui/internal-utils": "workspace:*",
+    "@way-ui/plugins": "workspace:*",
+    "@way-ui/shared-libs": "workspace:*",
+    "@way-ui/stores": "workspace:*",
+    "@way-ui/utils": "workspace:*",
+    "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
+    "element-plus": "catalog:",
+    "js-cookie": "^3.0.5",
+    "lodash-es": "^4.17.21",
+    "vue": "^3.5.13",
+    "vue-router": "^4.4.5"
+  },
+  "publishConfig": {
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
   }
 }

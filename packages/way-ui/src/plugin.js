@@ -1,6 +1,7 @@
 import {
   $cache,
   $download,
+  $file,
   $modal,
   $permission,
   $rolePermission,
@@ -8,11 +9,12 @@ import {
   $token,
   $validator,
   utils,
-} from '../plugins';
+} from '@way-ui/plugins';
 
 export default [
   $cache,
   $download,
+  $file,
   $modal,
   $permission,
   $rolePermission,

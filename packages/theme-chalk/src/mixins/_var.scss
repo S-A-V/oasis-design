@@ -1,0 +1,62 @@
+@use 'sass:map';
+@use 'sass:color';
+@use 'function' as *;
+@use '../common/var' as *;
+
+// @include set-css-var-value(('color', 'primary'), red);
+// --way-color-primary: red;
+@mixin set-css-var-value($name, $value) {
+  #{joinVarName($name)}: #{$value};
+}
+
+@mixin set-css-color-type($colors, $type) {
+  // @each $i in (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11) {
+  @for $i from 1 through 13 {
+    $color: map.get($colors, $type, $i);
+
+    @if $color {
+      @include set-css-var-value(('color', $type, $i), $color);
+    }
+  }
+}
+
+@mixin set-component-css-var($name, $variables) {
+  @each $attribute, $value in $variables {
+    @if $attribute == 'default' {
+      #{getCssVarName($name)}: #{$value};
+    } @else {
+      #{getCssVarName($name, $attribute)}: #{$value};
+    }
+  }
+}
+
+@mixin set-css-color-rgb($type) {
+  $colors: (
+    'primary': (
+      'base': $color-primary,
+    ),
+    'success': (
+      'base': $color-success,
+    ),
+    'warning': (
+      'base': $color-warning,
+    ),
+    'danger': (
+      'base': $color-danger,
+    ),
+    'error': (
+      'base': $color-error,
+    ),
+    'info': (
+      'base': $color-info,
+    ),
+  );
+  $color: map.get($colors, $type, 'base');
+
+  @include set-css-var-value(
+    ('color', $type, 'rgb'),
+    #{color.channel($color, 'red'),
+    color.channel($color, 'green'),
+    color.channel($color, 'blue')}
+  );
+}

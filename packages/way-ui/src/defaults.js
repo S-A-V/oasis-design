@@ -4,3 +4,4 @@ import Directives from './directive';
 import Plugins from './plugin';
 
 export default makeInstaller([...Components, ...Directives, ...Plugins]);
+export const pluginInstaller = makeInstaller(Plugins);

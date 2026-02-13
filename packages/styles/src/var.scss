@@ -1,0 +1,46 @@
+/* stylelint-disable length-zero-no-unit */
+
+// app-sizes
+$app-sizes: default, small, large;
+
+// font-size-step
+$font-size-step: (
+  'default': 0px,
+  'small': -2px,
+  'large': 0px,
+);
+
+// line-height-step
+$line-height-step: (
+  'default': 0px,
+  'small': -2px,
+  'large': 0px,
+);
+
+// padding-step
+$padding-step: (
+  'default': 0px,
+  'small': -2px,
+  'large': 2px,
+);
+
+// font-size
+$font-size: (
+  'default': 14px,
+  'small': 12px,
+  'large': 14px,
+);
+
+// line-height
+$line-height: (
+  'default': 20px,
+  'small': 18px,
+  'large': 20px,
+);
+
+// component-size
+$component-size: (
+  'default': var(--el-component-size),
+  'small': var(--el-component-size-small),
+  'large': var(--el-component-size-large),
+);

@@ -1,16 +1,17 @@
 {
   "name": "@way-ui/internal-utils",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.1.5",
+  "description": "Internal Utils for Way UI",
   "type": "module",
   "main": "index.js",
+  "module": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "dependencies": {
+    "@vue/shared": "3.5.13"
+  },
   "publishConfig": {
-    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
   }
 }

@@ -7,9 +7,9 @@
         :style="{ '--theme': theme }"
         :index="item.path"
       >
-        <svg-icon
+        <w-svg-icon
           v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-          :icon-class="item.meta.icon"
+          :name="item.meta.icon"
         />
         {{ item.meta.title }}
       </el-menu-item>
@@ -20,9 +20,9 @@
       <template #title>更多菜单</template>
       <template v-for="(item, index) in topMenus">
         <el-menu-item v-if="index >= visibleNumber" :key="index" :index="item.path">
-          <svg-icon
+          <w-svg-icon
             v-if="item.meta && item.meta.icon && item.meta.icon !== '#'"
-            :icon-class="item.meta.icon"
+            :name="item.meta.icon"
           />
           {{ item.meta.title }}
         </el-menu-item>
@@ -32,18 +32,21 @@
 </template>
 
 <script setup>
-import { ref, computed, onMounted, onBeforeUnmount, getCurrentInstance } from 'vue';
+import { ref, computed, onMounted, onBeforeUnmount } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import { constantRoutes } from '@/router';
-import useAppStore from '@/store/modules/app';
-import useSettingsStore from '@/store/modules/settings';
-import usePermissionStore from '@/store/modules/permission';
+import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus';
+import { $validator } from '@way-ui/plugins';
+import { useAppStore, useSettingStore as useSettingsStore } from '@way-ui/stores';
+import { useGlobalConfig } from '@way-ui/hooks';
+import { WSvgIcon } from '../../svg-icon';
 
 defineOptions({
   name: 'WTopNav',
 });
 
-const { proxy } = getCurrentInstance();
+// TODO: 需要获取静态路由 import { constantRoutes } from 'xxx/router';
+const constantRoutes = [];
+
 // 顶部栏初始数
 const visibleNumber = ref(null);
 // 当前激活菜单的 index
@@ -53,14 +56,14 @@ const hideList = ['/index', '/user/profile'];
 
 const appStore = useAppStore();
 const settingsStore = useSettingsStore();
-const permissionStore = usePermissionStore();
+const permissionStore = computed(() => useGlobalConfig('stores').value.permission);
 const route = useRoute();
 const router = useRouter();
 
 // 主题颜色
 const theme = computed(() => settingsStore.theme);
 // 所有的路由信息
-const routers = computed(() => permissionStore.topbarRouters);
+const routers = computed(() => permissionStore.value.topbarRouters);
 
 // 顶部显示菜单
 const topMenus = computed(() => {
@@ -87,7 +90,7 @@ const childrenMenus = computed(() => {
         if (router.path === '/') {
           router.children[item].path = '/' + router.children[item].path;
         } else {
-          if (!proxy.$validator.isHttp(router.children[item].path)) {
+          if (!$validator.isHttp(router.children[item].path)) {
             router.children[item].path = router.path + '/' + router.children[item].path;
           }
         }
@@ -125,7 +128,7 @@ function setVisibleNumber() {
 function handleSelect(key, keyPath) {
   currentIndex.value = key;
   const route = routers.value.find((item) => item.path === key);
-  if (proxy.$validator.isHttp(key)) {
+  if ($validator.isHttp(key)) {
     // http(s):// 路径新窗口打开
     window.open(key, '_blank');
   } else if (!route || !route.children) {
@@ -155,7 +158,7 @@ function activeRoutes(key) {
     });
   }
   if (routes.length > 0) {
-    permissionStore.setSidebarRouters(routes);
+    permissionStore.value.setSidebarRouters(routes);
   } else {
     appStore.toggleSideBarHide(true);
   }
@@ -208,7 +211,7 @@ onMounted(() => {
 }
 
 /* 图标右间距 */
-.topmenu-container .svg-icon {
+.topmenu-container .w-svg-icon {
   margin-right: 4px;
 }
 

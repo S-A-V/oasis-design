@@ -1,0 +1,25 @@
+{
+  "name": "@way-ui/hooks",
+  "version": "0.0.6",
+  "description": "Hooks for Way UI",
+  "type": "module",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@way-ui/utils": "workspace:*",
+    "element-plus": "catalog:",
+    "vue": "catalog:"
+  },
+  "peerDependencies": {
+    "@way-ui/utils": "workspace:*",
+    "element-plus": "catalog:",
+    "vue": "catalog:"
+  },
+  "publishConfig": {
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
+  }
+}

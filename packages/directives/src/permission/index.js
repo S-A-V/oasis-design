@@ -4,13 +4,13 @@
  *
  */
 
-import useUserStore from '@/store/modules/user';
+import { useGlobalConfig } from '@way-ui/hooks';
 
 export default {
   mounted(el, binding, vnode) {
     const { value } = binding;
     const all_permission = '*:*:*';
-    const permissions = useUserStore().permissions;
+    const permissions = useGlobalConfig('stores').value.user.permissions;
 
     if (value && value instanceof Array && value.length > 0) {
       const permissionFlag = value;

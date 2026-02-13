@@ -3,7 +3,7 @@
     <router-view v-slot="{ Component, route }">
       <!-- <transition name="fade-transform" mode="out-in"> -->
       <keep-alive :include="tagsViewStore.cachedViews">
-        <component v-if="!route.meta.link" :is="Component" :key="route.path" />
+        <component :is="Component" v-if="!route.meta.link" :key="route.path" />
       </keep-alive>
       <!-- </transition> -->
     </router-view>
@@ -12,28 +12,30 @@
 </template>
 
 <script setup>
-import iframeToggle from "./IframeToggle/index";
-import useTagsViewStore from "@/store/modules/tagsView";
+import { useTabbarStore as useTagsViewStore } from '@way-ui/stores';
+import iframeToggle from './IframeToggle/index.vue';
 
 const tagsViewStore = useTagsViewStore();
 </script>
 
 <style lang="scss" scoped>
-@import "@/assets/styles/variables.module.scss";
-
 .app-main {
-  min-width: $main-content-min-width;
+  position: relative;
+  width: 100%;
+  min-width: var(--min-content-width);
+
   /* 64 = navbar  64  */
   min-height: calc(100vh - 64px);
-  width: 100%;
-  position: relative;
-  overflow: auto;
+  overflow: hidden;
+
+  // overflow: auto;
 }
 
 // .fixed-header + .app-main {
 //   padding-top: 64px;
 // }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .hasTagsView {
   .app-main {
     /* 108 = navbar + tags-view = 64 + 44 */

@@ -1,0 +1,9 @@
+export declare const $cache: (typeof import('../src'))['$cache'];
+export declare const $download: (typeof import('../src'))['$download'];
+export declare const $file: (typeof import('../src'))['$file'];
+export declare const $modal: (typeof import('../src'))['$modal'];
+export declare const $permission: (typeof import('../src'))['$permission'];
+export declare const $rolePermission: (typeof import('../src'))['$rolePermission'];
+export declare const $tab: (typeof import('../src'))['$tab'];
+export declare const $token: (typeof import('../src'))['$token'];
+export declare const $validator: (typeof import('../src'))['$validator'];

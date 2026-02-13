@@ -1,0 +1,13 @@
+{
+  "name": "@way-ui/styles",
+  "version": "0.0.7",
+  "description": "Styles for Way UI",
+  "type": "module",
+  "sass": "index.scss",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "publishConfig": {
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
+  }
+}

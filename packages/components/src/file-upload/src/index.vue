@@ -52,6 +52,9 @@
 
 <script setup>
 import { ref, computed, watch, getCurrentInstance } from 'vue';
+import { $modal, $token } from '@way-ui/plugins';
+import { ElUpload, ElButton, ElLink } from 'element-plus';
+import { useGlobalConfig } from '@way-ui/hooks';
 
 defineOptions({
   name: 'WFileUpload',
@@ -81,13 +84,14 @@ const props = defineProps({
   },
 });
 
-const { proxy } = getCurrentInstance();
 // eslint-disable-next-line vue/valid-define-emits
 const emit = defineEmits();
+const { proxy } = getCurrentInstance();
+const { VITE_APP_BASE_URL, VITE_APP_BASE_API } = useGlobalConfig('env').value;
 const number = ref(0);
 const uploadList = ref([]);
-const uploadFileUrl = ref(import.meta.env.VITE_APP_BASE_API + '/file/upload'); // 上传文件服务器地址
-const headers = ref({ Authorization: 'Bearer ' + proxy.$token.get() });
+const uploadFileUrl = ref(VITE_APP_BASE_URL + VITE_APP_BASE_API + '/file/upload'); // 上传文件服务器地址
+const headers = ref({ Authorization: 'Bearer ' + $token.get() });
 const fileList = ref([]);
 const showTip = computed(() => props.isShowTip && (props.fileType || props.fileSize));
 
@@ -122,7 +126,7 @@ function handleBeforeUpload(file) {
     const fileExt = fileName[fileName.length - 1];
     const isTypeOk = props.fileType.indexOf(fileExt) >= 0;
     if (!isTypeOk) {
-      proxy.$modal.msgError(`文件格式不正确, 请上传${props.fileType.join('/')}格式文件!`);
+      $modal.msgError(`文件格式不正确, 请上传${props.fileType.join('/')}格式文件!`);
       return false;
     }
   }
@@ -130,23 +134,23 @@ function handleBeforeUpload(file) {
   if (props.fileSize) {
     const isLt = file.size / 1024 / 1024 < props.fileSize;
     if (!isLt) {
-      proxy.$modal.msgError(`上传文件大小不能超过 ${props.fileSize} MB!`);
+      $modal.msgError(`上传文件大小不能超过 ${props.fileSize} MB!`);
       return false;
     }
   }
-  proxy.$modal.loading('正在上传文件，请稍候...');
+  $modal.loading('正在上传文件，请稍候...');
   number.value++;
   return true;
 }
 
 // 文件个数超出
 function handleExceed() {
-  proxy.$modal.msgError(`上传文件数量不能超过 ${props.limit} 个!`);
+  $modal.msgError(`上传文件数量不能超过 ${props.limit} 个!`);
 }
 
 // 上传失败
 function handleUploadError(err) {
-  proxy.$modal.msgError('上传文件失败');
+  $modal.msgError('上传文件失败');
 }
 
 // 上传成功回调
@@ -156,8 +160,8 @@ function handleUploadSuccess(res, file) {
     uploadedSuccessfully();
   } else {
     number.value--;
-    proxy.$modal.closeLoading();
-    proxy.$modal.msgError(res.msg);
+    $modal.closeLoading();
+    $modal.msgError(res.msg);
     proxy.$refs.fileUpload.handleRemove(file);
     uploadedSuccessfully();
   }
@@ -176,7 +180,7 @@ function uploadedSuccessfully() {
     uploadList.value = [];
     number.value = 0;
     emit('update:modelValue', listToString(fileList.value));
-    proxy.$modal.closeLoading();
+    $modal.closeLoading();
   }
 }
 
@@ -215,6 +219,7 @@ function listToString(list, separator) {
   border: 1px solid #e4e7ed;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .upload-file-list .ele-upload-list__item-content {
   display: flex;
   align-items: center;
@@ -222,6 +227,7 @@ function listToString(list, separator) {
   color: inherit;
 }
 
+/* stylelint-disable-next-line selector-class-pattern */
 .ele-upload-list__item-content-action .el-link {
   margin-right: 10px;
 }

@@ -1,0 +1,12 @@
+@use 'way-ui/styles/themes/jm/base';
+
+.clearfix {
+  &::after {
+    display: block;
+    height: 0;
+    clear: both;
+    font-size: 0;
+    visibility: hidden;
+    content: ' ';
+  }
+}

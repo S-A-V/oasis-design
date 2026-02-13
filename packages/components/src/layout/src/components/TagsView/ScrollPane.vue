@@ -11,8 +11,11 @@
 
 <script setup>
 import { ref, computed, getCurrentInstance, onMounted, onBeforeUnmount } from 'vue';
-import useTagsViewStore from '@/store/modules/tagsView';
+import { ElScrollbar } from 'element-plus';
+import { useTabbarStore as useTagsViewStore } from '@way-ui/stores';
 
+const emit = defineEmits(['scroll']);
+const emits = emit;
 const tagAndTagSpacing = ref(4);
 const { proxy } = getCurrentInstance();
 
@@ -32,7 +35,6 @@ function handleScroll(e) {
   $scrollWrapper.scrollLeft = $scrollWrapper.scrollLeft + eventDelta / 4;
 }
 
-const emits = defineEmits(['scroll']);
 const emitScroll = () => {
   emits('scroll');
 };

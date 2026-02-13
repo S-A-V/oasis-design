@@ -1,0 +1,119 @@
+@use 'reset';
+@use '@way-ui/theme-chalk';
+@use 'global' as *;
+
+// 更换 element-plus 主题色
+:root {
+  // rgb
+  --el-color-primary-rgb: var(--way-color-primary-rgb);
+  --el-color-success-rgb: var(--way-color-success-rgb);
+  --el-color-warning-rgb: var(--way-color-warning-rgb);
+  --el-color-danger-rgb: var(--way-color-danger-rgb);
+  --el-color-error-rgb: var(--way-color-error-rgb);
+  --el-color-info-rgb: var(--way-color-info-rgb);
+
+  // primary
+  --el-color-primary: var(--way-color-primary);
+  --el-color-primary-light-3: var(--way-color-primary-11);
+  --el-color-primary-light-5: var(--way-color-primary-6);
+  --el-color-primary-light-7: var(--way-color-primary-12);
+  --el-color-primary-light-8: var(--way-color-primary-8);
+  --el-color-primary-light-9: var(--way-color-primary-10);
+  --el-color-primary-dark-2: var(--way-color-primary-4);
+
+  // success
+  --el-color-success: var(--way-color-success);
+  --el-color-success-light-3: var(--way-color-success-6);
+  --el-color-success-light-5: var(--way-color-success-4);
+  --el-color-success-light-7: var(--way-color-success-7);
+  --el-color-success-light-8: var(--way-color-success-5);
+  --el-color-success-light-9: var(--way-color-success-8);
+  --el-color-success-dark-2: var(--way-color-success-1);
+
+  // warning
+  --el-color-warning: var(--way-color-warning);
+  --el-color-warning-light-3: var(--way-color-warning-8);
+  --el-color-warning-light-5: var(--way-color-warning-4);
+  --el-color-warning-light-7: var(--way-color-warning-9);
+  --el-color-warning-light-8: var(--way-color-warning-6);
+  --el-color-warning-light-9: var(--way-color-warning-10);
+  --el-color-warning-dark-2: var(--way-color-warning-2);
+
+  // danger
+  --el-color-danger: var(--way-color-danger);
+  --el-color-danger-light-3: var(--way-color-danger-8);
+  --el-color-danger-light-5: var(--way-color-danger-4);
+  --el-color-danger-light-7: var(--way-color-danger-5);
+  --el-color-danger-light-8: var(--way-color-danger-6);
+  --el-color-danger-light-9: var(--way-color-danger-7);
+  --el-color-danger-dark-2: var(--way-color-danger-1);
+
+  // error
+  --el-color-error: var(--way-color-error);
+  --el-color-error-light-3: var(--way-color-error-8);
+  --el-color-error-light-5: var(--way-color-error-4);
+  --el-color-error-light-7: var(--way-color-error-5);
+  --el-color-error-light-8: var(--way-color-error-6);
+  --el-color-error-light-9: var(--way-color-error-7);
+  --el-color-error-dark-2: var(--way-color-error-1);
+
+  // info
+  --el-color-info: var(--way-color-info);
+  --el-color-info-light-3: var(--way-color-info-5);
+  --el-color-info-light-5: var(--way-color-info-6);
+  --el-color-info-light-7: var(--way-color-info-7);
+  --el-color-info-light-8: var(--way-color-info-8);
+  --el-color-info-light-9: var(--way-color-info-10);
+  --el-color-info-dark-2: var(--way-color-info-3);
+
+  // Typography
+  --el-font-size-extra-large: var(--way-font-size-extra-large);
+  --el-font-size-large: var(--way-font-size-large);
+  --el-font-size-medium: var(--way-font-size-medium);
+  --el-font-size-base: var(--way-font-size-base);
+  --el-font-size-small: var(--way-font-size-small);
+  --el-font-size-extra-small: var(--way-font-size-extra-small);
+
+  // color-scheme
+  --el-bg-color: var(--way-bg-color);
+  --el-bg-color-page: var(--way-bg-color-page);
+  --el-bg-color-overlay: var(--way-bg-color-overlay);
+  --el-text-color-primary: var(--way-text-color-primary);
+  --el-text-color-regular: var(--way-text-color-regular);
+  --el-text-color-secondary: var(--way-text-color-secondary);
+  --el-text-color-placeholder: var(--way-text-color-placeholder);
+  --el-text-color-disabled: var(--way-text-color-disabled);
+  --el-border-color: var(--way-border-color);
+  --el-border-color-light: var(--way-border-color-light);
+  --el-border-color-lighter: var(--way-border-color-lighter);
+  --el-border-color-extra-light: var(--way-border-color-extra-light);
+  --el-border-color-dark: var(--way-border-color-dark);
+  --el-border-color-darker: var(--way-border-color-darker);
+  --el-fill-color: var(--way-fill-color);
+  --el-fill-color-light: var(--way-fill-color-light);
+  --el-fill-color-lighter: var(--way-fill-color-lighter);
+  --el-fill-color-extra-light: var(--way-fill-color-extra-light);
+  --el-fill-color-dark: var(--way-fill-color-dark);
+  --el-fill-color-darker: var(--way-fill-color-darker);
+  --el-fill-color-blank: var(--way-fill-color-blank);
+  --el-disabled-bg-color: var(--way-disabled-bg-color);
+  --el-disabled-text-color: var(--way-disabled-text-color);
+  --el-disabled-border-color: var(--way-disabled-border-color);
+}
+
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+  font-size: 14px;
+}
+
+#app {
+  height: 100%;
+}
+
+@each $app-size in $w-app-sizes {
+  @include w-set-app-css($app-size);
+}

@@ -1,0 +1,52 @@
+﻿import axios from 'axios';
+import { ElLoading, ElMessage } from 'element-plus';
+import { saveAs } from 'file-saver-es';
+import { DEFAULT_ERROR_MESSAGE, ERROR_CODE_MAP } from '@way-ui/constants';
+import { blobValidate } from '@way-ui/utils/way';
+import { useGlobalConfig } from '@way-ui/hooks';
+import $token from './token';
+
+let downloadLoadingInstance;
+
+export default {
+  zip({ url: requestUrl, data, name }) {
+    const { VITE_APP_BASE_URL, VITE_APP_BASE_API } = useGlobalConfig('env').value;
+    const baseURL = VITE_APP_BASE_URL + VITE_APP_BASE_API;
+    let url = baseURL + requestUrl;
+    downloadLoadingInstance = ElLoading.service({
+      text: '正在下载数据，请稍候',
+      background: 'rgba(0, 0, 0, 0.7)',
+    });
+    axios({
+      method: 'post',
+      url: url,
+      data,
+      responseType: 'blob',
+      headers: { Authorization: 'Bearer ' + $token.get() },
+    })
+      .then((res) => {
+        const isBlob = blobValidate(res.data);
+        if (isBlob) {
+          const blob = new Blob([res.data], { type: 'application/zip' });
+          this.saveAs(blob, name);
+        } else {
+          this.printErrMsg(res.data);
+        }
+        downloadLoadingInstance.close();
+      })
+      .catch((r) => {
+        console.error(r);
+        ElMessage.error('下载文件出现错误，请联系管理员！');
+        downloadLoadingInstance.close();
+      });
+  },
+  saveAs(text, name, opts) {
+    saveAs(text, name, opts);
+  },
+  async printErrMsg(data) {
+    const resText = await data.text();
+    const rspObj = JSON.parse(resText);
+    const errMsg = ERROR_CODE_MAP[rspObj.code] || rspObj.msg || DEFAULT_ERROR_MESSAGE;
+    ElMessage.error(errMsg);
+  },
+};

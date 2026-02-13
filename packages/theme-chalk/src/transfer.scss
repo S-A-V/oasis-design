@@ -1,0 +1,51 @@
+@use 'mixins/mixins' as *;
+
+.el-transfer {
+  --el-transfer-border-color: var(--el-border-color);
+
+  .el-transfer-panel__header {
+    padding-left: 12px;
+
+    .el-checkbox .el-checkbox__label {
+      font-size: 14px;
+
+      span {
+        font-size: 14px;
+        color: var();
+      }
+    }
+  }
+}
+
+.el-transfer__buttons {
+  display: inline-flex;
+  flex-direction: column;
+  padding: 0 12px;
+}
+
+.el-transfer__button {
+  &:nth-child(2) {
+    margin: 12px 0 0;
+  }
+
+  &:not(.is-with-texts) {
+    width: 30px;
+    min-width: unset;
+    height: 30px;
+    border-radius: 15px;
+
+    &.is-disabled {
+      color: var(--el-text-color-disabled);
+      background-color: var(--el-fill-color-blank);
+      border-color: var(--el-border-color);
+    }
+
+    i {
+      font-size: var(--el-font-size-large);
+    }
+  }
+}
+
+.el-transfer-panel__item {
+  padding-left: 12px;
+}

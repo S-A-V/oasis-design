@@ -5,7 +5,7 @@
       class="drawer-bg"
       @click="handleClickOutside"
     />
-    <sidebar v-if="!sidebar.hide" class="sidebar-container" />
+    <side-bar v-if="!sidebar.hide" class="sidebar-container" />
     <div
       :class="{
         'header-fixed': fixedHeader,
@@ -27,12 +27,9 @@
 <script setup>
 import { ref, computed, watch, watchEffect } from 'vue';
 import { useWindowSize } from '@vueuse/core';
-import Sidebar from './components/Sidebar/index.vue';
+import { useAppStore, useSettingStore as useSettingsStore } from '@way-ui/stores';
+import SideBar from './components/Sidebar/index.vue';
 import { AppMain, Navbar, Settings, TagsView } from './components';
-import defaultSettings from '@/settings';
-
-import useAppStore from '@/store/modules/app';
-import useSettingsStore from '@/store/modules/settings';
 
 defineOptions({
   name: 'WLayout',
@@ -40,7 +37,7 @@ defineOptions({
 
 const settingsStore = useSettingsStore();
 const theme = computed(() => settingsStore.theme);
-const sideTheme = computed(() => settingsStore.sideTheme);
+// const sideTheme = computed(() => settingsStore.sideTheme);
 const sidebar = computed(() => useAppStore().sidebar);
 const device = computed(() => useAppStore().device);
 const needTagsView = computed(() => settingsStore.tagsView);
@@ -53,7 +50,7 @@ const classObj = computed(() => ({
   mobile: device.value === 'mobile',
 }));
 
-const { width, height } = useWindowSize();
+const { width } = useWindowSize();
 const WIDTH = 992; // refer to Bootstrap's responsive design
 
 watch(
@@ -84,20 +81,52 @@ function setLayout() {
 }
 </script>
 
+<style lang="scss">
+body {
+  // --min-content-width: 1200px;
+  --sidebar-width: 204px;
+  --min-content-width: 0px;
+  --base-menu-color: #fff;
+  --base-menu-color-active: #fff;
+  --base-menu-background: #020b17;
+  --base-logo-title-color: #fff;
+  --base-menu-light-color: rgb(0 0 0 / 70%);
+  --base-menu-light-background: #fff;
+  --base-logo-light-title-color: #001529;
+  --base-sub-menu-background: #020b17;
+  --base-sub-menu-hover: #001528;
+}
+</style>
+
 <style lang="scss" scoped>
-@import '@/assets/styles/mixin';
-@import '@/assets/styles/variables.module';
+/* stylelint-disable selector-class-pattern */
+
+@mixin clearfix {
+  &::after {
+    display: table;
+    clear: both;
+    content: '';
+  }
+}
+
+$base-sidebar-width: var(--sidebar-width);
 
 .main-container {
   position: relative;
   height: 100%;
   margin-left: $base-sidebar-width;
   overflow-y: auto;
+  background-color: #f5f6fa;
   transition: margin-left 0.28s;
 
   &.header-fixed {
     padding-top: 64px;
     overflow-y: hidden;
+
+    .app-main {
+      height: calc(100vh - 64px);
+      min-height: unset;
+    }
 
     &.hasTagsView {
       padding-top: 108px;
@@ -107,11 +136,28 @@ function setLayout() {
         min-height: unset;
       }
     }
+  }
+}
 
-    .app-main {
-      height: calc(100vh - 64px);
-      min-height: unset;
-    }
+.sidebarHide {
+  margin-left: 0 !important;
+}
+
+.hideSidebar {
+  .main-container {
+    margin-left: 57px;
+  }
+}
+
+.mobile {
+  .main-container {
+    margin-left: 0;
+  }
+}
+
+.withoutAnimation {
+  .main-container {
+    transition: none;
   }
 }
 
@@ -131,7 +177,7 @@ function setLayout() {
 .drawer-bg {
   position: absolute;
   top: 0;
-  z-index: 999;
+  z-index: 2001;
   width: 100%;
   height: 100%;
   background: #000;
@@ -157,9 +203,5 @@ function setLayout() {
 
 .mobile .fixed-header {
   width: 100%;
-}
-
-.main-container {
-  background-color: #f5f6fa;
 }
 </style>

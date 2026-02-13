@@ -1,0 +1,32 @@
+@use '../../global' as *;
+@use '../../base';
+@use './dialog';
+@use './message-box';
+
+.el-overlay {
+  background-color: rgb(0 0 0 / 20%);
+}
+
+body {
+  // descriptions
+  .w-descriptions {
+    @include w-apply-font-size(14px);
+  }
+
+  .w-descriptions-item {
+    &-label {
+      padding-top: 1px;
+      color: var(--way-color-info-3);
+    }
+
+    &-content {
+      @include w-apply-font-size(16px);
+      @include w-apply-line-height(22px);
+    }
+  }
+
+  // form-header
+  .w-form-header {
+    background-color: var(--way-color-primary-8);
+  }
+}

@@ -12,7 +12,9 @@
           :index="resolvePath(onlyOneChild.path)"
           :class="{ 'submenu-title-noDropdown': !isNest }"
         >
-          <svg-icon :icon-class="onlyOneChild.meta.icon || (item.meta && item.meta.icon)" />
+          <w-svg-icon
+            :name="getIconName(onlyOneChild.meta.icon || (item.meta && item.meta.icon))"
+          />
           <template #title>
             <span class="menu-title" :title="hasTitle(onlyOneChild.meta.title)">
               {{ onlyOneChild.meta.title }}
@@ -24,7 +26,7 @@
 
     <el-sub-menu v-else ref="subMenu" :index="resolvePath(item.path)" teleported>
       <template v-if="item.meta" #title>
-        <svg-icon :icon-class="item.meta && item.meta.icon" />
+        <w-svg-icon :name="getIconName(item.meta && item.meta.icon)" />
         <span class="menu-title" :title="hasTitle(item.meta.title)">
           {{ item.meta.title }}
         </span>
@@ -33,7 +35,7 @@
       <sidebar-item
         v-for="(child, index) in item.children"
         :key="child.path + index"
-        :is-nest="true"
+        is-nest
         :item="child"
         :base-path="resolvePath(child.path)"
         class="nest-menu"
@@ -43,9 +45,12 @@
 </template>
 
 <script setup>
-import { ref, getCurrentInstance } from 'vue';
-import AppLink from './Link';
+import { ref } from 'vue';
+import { ElMenuItem, ElSubMenu } from 'element-plus';
+import { WSvgIcon } from '../../../../svg-icon';
+import AppLink from './Link.vue';
 import { getNormalPath } from '@way-ui/utils/way';
+import { $validator } from '@way-ui/plugins';
 
 const props = defineProps({
   // route object
@@ -63,7 +68,6 @@ const props = defineProps({
   },
 });
 
-const { proxy } = getCurrentInstance();
 const onlyOneChild = ref({});
 
 function hasOneShowingChild(children = [], parent) {
@@ -95,10 +99,10 @@ function hasOneShowingChild(children = [], parent) {
 }
 
 function resolvePath(routePath, routeQuery) {
-  if (proxy.$validator.isExternalLink(routePath)) {
+  if ($validator.isExternalLink(routePath)) {
     return routePath;
   }
-  if (proxy.$validator.isExternalLink(props.basePath)) {
+  if ($validator.isExternalLink(props.basePath)) {
     return props.basePath;
   }
   if (routeQuery) {
@@ -109,6 +113,19 @@ function resolvePath(routePath, routeQuery) {
     };
   }
   return getNormalPath(props.basePath + '/' + routePath);
+}
+
+/**
+ * 获取图标名称
+ * @param icon 图标名称
+ *
+ * @example
+ * getIconName(undefined) // 返回 ''
+ * getIconName('home') // 返回 'home'
+ * getIconName('home.svg') // 返回 'home'
+ */
+function getIconName(icon = '') {
+  return icon.replace(/\.svg$/, '');
 }
 
 function hasTitle(title) {

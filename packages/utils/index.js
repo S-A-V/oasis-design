@@ -1,4 +1,4 @@
-import { parseTime } from './way';
+import { parseTime } from './src/way';
 
 /**
  * 表格时间格式化
