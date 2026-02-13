@@ -1,16 +1,25 @@
 {
   "name": "@way-ui/unplugin",
-  "version": "0.0.2",
-  "description": "",
+  "version": "0.0.8",
+  "description": "Unplugin for Way UI",
   "type": "module",
   "main": "index.js",
+  "module": "index.js",
+  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "types": "./types/index.d.ts"
+    },
+    "./*": {
+      "import": "./*/index.js",
+      "types": "./types/*/index.d.ts"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "publishConfig": {
-    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
   }
 }

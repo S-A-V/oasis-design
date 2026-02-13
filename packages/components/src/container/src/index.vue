@@ -1,5 +1,5 @@
 <template>
-  <div :class="['w-container', `is-${direction}`]">
+  <div class="w-container" :class="[`is-${direction}`]">
     <div class="w-container-header">
       <slot name="header">
         <w-breadcrumb />
@@ -51,10 +51,18 @@ defineProps({
     flex-grow: 1;
     min-height: 0;
 
-    > .w-table-container {
-      + .w-pagination-container {
-        padding-top: 0;
+    > * {
+      + * {
+        margin-top: 8px;
       }
+
+      &:last-child {
+        margin-bottom: 8px;
+      }
+    }
+
+    > .w-table-container {
+      padding: 0 8px;
     }
   }
 

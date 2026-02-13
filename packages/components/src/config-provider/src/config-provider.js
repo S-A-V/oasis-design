@@ -1,5 +1,5 @@
 import { defineComponent, renderSlot } from 'vue';
-import { provideGlobalConfig } from './hooks/use-global-config';
+import { provideGlobalConfig } from '@way-ui/hooks';
 
 const ConfigProvider = defineComponent({
   name: 'WConfigProvider',
@@ -9,9 +9,17 @@ const ConfigProvider = defineComponent({
       default: undefined,
       required: true,
     },
+    stores: {
+      type: Object,
+      required: true,
+    },
     commonMenus: {
       type: Array,
       default: () => [],
+    },
+    assets: {
+      type: Object,
+      default: () => ({}),
     },
   },
   setup(props, { slots }) {

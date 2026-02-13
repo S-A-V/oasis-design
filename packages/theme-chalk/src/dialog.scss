@@ -17,6 +17,10 @@
   border-bottom: 1px solid var(--way-color-info-7);
 }
 
+.el-dialog__title {
+  font-weight: bold;
+}
+
 .el-dialog__body {
   padding: 0;
 }

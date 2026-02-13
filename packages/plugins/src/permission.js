@@ -1,10 +1,10 @@
-import useUserStore from '@/store/modules/user';
+import { useGlobalConfig } from '@way-ui/hooks';
 
 const ADMIN_PERMISSION = '*:*:*';
 const ADMIN_ROLE = 'admin';
 
 function authPermission(permission) {
-  const permissions = useUserStore().permissions || [];
+  const permissions = useGlobalConfig('stores').value.user.permissions || [];
   if (!permissions.length) return false;
   return permissions.some((v) => {
     return v === ADMIN_PERMISSION || v === permission;
@@ -12,7 +12,7 @@ function authPermission(permission) {
 }
 
 function authRole(role) {
-  const roles = useUserStore().roles || [];
+  const roles = useGlobalConfig('stores').value.user.roles || [];
   if (!roles.length) return false;
   return roles.some((v) => {
     return v === ADMIN_ROLE || v === role;

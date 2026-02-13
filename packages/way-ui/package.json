@@ -1,24 +1,60 @@
 {
   "name": "way-ui",
-  "version": "0.1.117",
-  "description": "",
+  "version": "0.2.151",
+  "description": "Way UI component library (for Vue 3)",
   "type": "module",
   "main": "index.js",
+  "module": "index.js",
+  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "types": "./types/index.d.ts"
+    },
+    "./styles/*": {
+      "sass": "./src/styles/*.scss"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "publishConfig": {
-    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
-  },
   "dependencies": {
-    "@way-ui/components": "0.1.99",
-    "@way-ui/constants": "0.1.0",
-    "@way-ui/directives": "0.1.0",
-    "@way-ui/internal-utils": "0.1.0",
-    "@way-ui/plugins": "0.0.45",
-    "@way-ui/utils": "0.1.7"
+    "@way-ui/components": "workspace:*",
+    "@way-ui/directives": "workspace:*",
+    "@way-ui/internal-utils": "workspace:*",
+    "@way-ui/plugins": "workspace:*",
+    "@way-ui/shared-libs": "workspace:*",
+    "@way-ui/styles": "workspace:*",
+    "@way-ui/theme-chalk": "workspace:*",
+    "@way-ui/utils": "workspace:*"
+  },
+  "devDependencies": {
+    "@vueuse/core": "^10.11.1",
+    "@way-ui/constants": "workspace:*",
+    "@way-ui/hooks": "workspace:*",
+    "@way-ui/stores": "workspace:*",
+    "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
+    "element-plus": "catalog:",
+    "js-cookie": "^3.0.5",
+    "lodash-es": "^4.17.21",
+    "vue": "^3.5.13",
+    "vue-router": "^4.4.5"
+  },
+  "peerDependencies": {
+    "@vueuse/core": "^10.11.1",
+    "@way-ui/constants": "workspace:*",
+    "@way-ui/hooks": "workspace:*",
+    "@way-ui/stores": "workspace:*",
+    "axios": "^1.7.9",
+    "dayjs": "^1.11.13",
+    "element-plus": "catalog:",
+    "js-cookie": "^3.0.5",
+    "lodash-es": "^4.17.21",
+    "vue": "^3.5.13",
+    "vue-router": "^4.4.5"
+  },
+  "publishConfig": {
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
   }
 }

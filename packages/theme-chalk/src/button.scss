@@ -1,16 +1,22 @@
 @use 'mixins/mixins' as *;
 
-/*
 .el-button {
-  --el-button-text-color: var(--way-color-info-3);
+  --el-text-color-regular: var(--el-text-color-primary);
+  --el-disabled-text-color: var(--way-text-color-disabled);
 
-  &.is-disabled {
-    color: var(--way-color-info-13);
+  min-width: 76px;
+
+  &--small {
+    min-width: 52px;
   }
-}
-*/
 
-.el-button {
+  &.is-circle,
+  &.is-link,
+  &.is-text,
+  &-group .el-button {
+    min-width: unset;
+  }
+
   &.violet {
     &.is-plain {
       --el-button-text-color: var(--way-color-violet-3);
@@ -34,6 +40,10 @@
       }
     }
   }
+
+  + .el-button {
+    margin-left: 16px;
+  }
 }
 
 .el-button--primary {
@@ -42,8 +52,14 @@
     --el-button-border-color: var(--el-color-primary);
 
     &.is-disabled {
-      background-color: var(--way-color-white);
-      border-color: var(--el-color-primary-light-5);
+      &,
+      &:active,
+      &:focus,
+      &:hover {
+        color: var(--el-color-primary-light-5);
+        background-color: var(--way-color-white);
+        border-color: var(--el-color-primary-light-5);
+      }
     }
   }
 }
@@ -55,8 +71,14 @@
     --el-button-border-color: var(--el-color-success-light-5);
 
     &.is-disabled {
-      background-color: var(--el-color-success-light-8);
-      border-color: var(--el-color-success-light-7);
+      &,
+      &:active,
+      &:focus,
+      &:hover {
+        color: var(--el-color-success-light-5);
+        background-color: var(--el-color-success-light-8);
+        border-color: var(--el-color-success-light-7);
+      }
     }
   }
 }
@@ -66,8 +88,14 @@
     --el-button-text-color: var(--el-color-warning-dark-2);
 
     &.is-disabled {
-      background-color: var(--el-color-warning-light-8);
-      border-color: var(--el-color-warning-light-7);
+      &,
+      &:active,
+      &:focus,
+      &:hover {
+        color: var(--el-color-warning-light-5);
+        background-color: var(--el-color-warning-light-8);
+        border-color: var(--el-color-warning-light-7);
+      }
     }
   }
 }
@@ -77,8 +105,14 @@
     --el-button-text-color: var(--way-color-danger-3);
 
     &.is-disabled {
-      background-color: var(--el-color-danger-light-8);
-      border-color: var(--el-color-danger-light-7);
+      &,
+      &:active,
+      &:focus,
+      &:hover {
+        color: var(--el-color-danger-light-5);
+        background-color: var(--el-color-danger-light-8);
+        border-color: var(--el-color-danger-light-7);
+      }
     }
   }
 }

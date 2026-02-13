@@ -15,6 +15,28 @@
     >
       <div ref="conditionContainer">
         <slot></slot>
+
+        <!-- 高级筛选 -->
+        <div v-if="$slots.advanced" class="advanced-container">
+          <div class="advanced-header">
+            <span v-show="!advancedExpanded">更多筛选设置 试试</span>
+            <div v-show="!advancedExpanded" class="advanced-button" @click="handleAdvancedExpand">
+              高级筛选
+              <el-icon class="advanced-button-icon">
+                <arrow-down></arrow-down>
+              </el-icon>
+            </div>
+            <div v-show="advancedExpanded" class="advanced-button" @click="handleAdvancedExpand">
+              收起筛选项
+              <el-icon class="advanced-button-icon">
+                <arrow-up></arrow-up>
+              </el-icon>
+            </div>
+          </div>
+          <div v-show="advancedExpanded" class="advanced-content">
+            <slot name="advanced"></slot>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -25,11 +47,12 @@
 </template>
 
 <script setup>
-import Cookies from 'js-cookie';
 import { ref, computed, watch, onMounted, useTemplateRef, getCurrentInstance } from 'vue';
-import { ElButton, ElCard } from 'element-plus';
+import { ElIcon, ElButton, ElCard } from 'element-plus';
 import { ArrowUp, ArrowDown } from '@element-plus/icons-vue';
-import { useWindowSize, useElementVisibility } from '@vueuse/core';
+import { useLocalStorage, useWindowSize, useElementVisibility } from '@vueuse/core';
+import { LOCAL_STORAGE_KEYS } from '@way-ui/constants';
+import { addUnit } from '@way-ui/internal-utils';
 
 defineOptions({
   name: 'WSearchContainer',
@@ -39,6 +62,11 @@ const props = defineProps({
   defaultRows: {
     type: Number,
     default: 1,
+  },
+  // 控件宽度
+  controlWidth: {
+    type: [String, Number],
+    default: '230px',
   },
 });
 
@@ -51,13 +79,19 @@ const style = ref({
     border_top_width: proxy.$slots.default ? '1px' : '0',
   },
 });
+const controlStyle = computed(() => {
+  return {
+    width: addUnit(props.controlWidth),
+  };
+});
 const expanded = ref(false);
+const advancedExpanded = ref(false);
 const conditionContainerRef = useTemplateRef('conditionContainer');
 const isConditionContainerVisible = useElementVisibility(conditionContainerRef);
 const conditionContainerHeight = ref(0);
 const { width: windowWidth } = useWindowSize();
 const formContainerMaxHeight = computed(() => {
-  const size = Cookies.get('size') || 'default';
+  const size = useLocalStorage(LOCAL_STORAGE_KEYS.LAYOUT_SETTING, { size: 'default' }).value.size;
   return props.defaultRows * { large: 52, default: 44, small: 36 }[size];
 });
 const enableExpand = computed(() => {
@@ -66,6 +100,10 @@ const enableExpand = computed(() => {
 
 function handleExpand() {
   expanded.value = !expanded.value;
+}
+
+function handleAdvancedExpand() {
+  advancedExpanded.value = !advancedExpanded.value;
 }
 
 function calcConditionContainerHeight() {
@@ -82,7 +120,7 @@ onMounted(() => {
 </script>
 
 <style lang="scss" scoped>
-$default-input-width: min(230px, 100%);
+$default-input-width: min(var(--control-width), 100%);
 
 :deep(.el-autocomplete) {
   --el-input-width: #{$default-input-width};
@@ -110,12 +148,6 @@ $default-input-width: min(230px, 100%);
   --el-select-width: #{$default-input-width};
 }
 
-:deep(.el-button) {
-  + .el-button {
-    margin-left: 16px;
-  }
-}
-
 :deep(.el-card__body) {
   display: v-bind('style.el_card_body.display');
   padding: 12px 12px 0 0;
@@ -130,6 +162,7 @@ $default-input-width: min(230px, 100%);
   $column-width: calc(124px + #{$default-input-width});
 
   --column-count: 3;
+  --control-width: v-bind('controlStyle.width');
 
   display: grid;
   grid-template-columns: repeat(var(--column-count), $column-width);
@@ -152,6 +185,7 @@ $default-input-width: min(230px, 100%);
   --el-card-border-radius: 0;
 
   flex-shrink: 0;
+  border-inline-width: 0;
 }
 
 .toggle-btn {
@@ -165,5 +199,32 @@ $default-input-width: min(230px, 100%);
 .form-container {
   overflow: hidden;
   transition: max-height 0.5s;
+}
+
+.advanced {
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    line-height: 20px;
+    background-color: var(--way-color-primary-10);
+  }
+
+  &-button {
+    display: inline-flex;
+    align-items: center;
+    margin-left: 4px;
+    color: var(--way-color-primary);
+    cursor: pointer;
+
+    &-icon {
+      margin-left: 4px;
+    }
+  }
+
+  &-content {
+    padding-top: 12px;
+  }
 }
 </style>

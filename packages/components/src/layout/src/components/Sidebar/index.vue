@@ -21,7 +21,7 @@
         :text-color="
           sideTheme === 'theme-dark' ? 'var(--base-menu-color)' : 'var(--base-menu-light-color)'
         "
-        :unique-opened="true"
+        unique-opened
         :collapse-transition="false"
         mode="vertical"
         :popper-class="`sidebar-menu-popup-container ${sideTheme}`"
@@ -40,20 +40,19 @@
 <script setup name="Sidebar">
 import { computed, getCurrentInstance, toRef } from 'vue';
 import { ElMenu, ElScrollbar } from 'element-plus';
-import Logo from './Logo';
-import SidebarItem from './SidebarItem';
-import useAppStore from '@/store/modules/app';
-import useSettingsStore from '@/store/modules/settings';
-import usePermissionStore from '@/store/modules/permission';
+import { useAppStore, useSettingStore as useSettingsStore } from '@way-ui/stores';
+import { useGlobalConfig } from '@way-ui/hooks';
+import Logo from './Logo.vue';
+import SidebarItem from './SidebarItem.vue';
 
 const instance = getCurrentInstance();
 const { $router } = instance.appContext.config.globalProperties;
 const router = toRef($router);
 const appStore = useAppStore();
 const settingsStore = useSettingsStore();
-const permissionStore = usePermissionStore();
+const permissionStore = computed(() => useGlobalConfig('stores').value.permission);
 
-const sidebarRouters = computed(() => permissionStore.sidebarRouters);
+const sidebarRouters = computed(() => permissionStore.value.sidebarRouters);
 const showLogo = computed(() => settingsStore.sidebarLogo);
 const sideTheme = computed(() => settingsStore.sideTheme);
 const isCollapse = computed(() => !appStore.sidebar.opened);
@@ -132,6 +131,15 @@ body {
       display: inline-block;
       width: 100%;
       overflow: hidden;
+
+      &:focus-visible {
+        outline: none;
+
+        > .el-menu-item::before {
+          outline: -webkit-focus-ring-color auto 1px;
+          outline-offset: 1px;
+        }
+      }
     }
 
     .w-svg-icon {

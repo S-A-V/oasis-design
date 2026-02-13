@@ -1,12 +1,8 @@
-<template>
-  <div>
-    <w-svg-icon :name="isFullscreen ? 'exit-fullscreen' : 'fullscreen'" @click="toggle" />
-  </div>
-</template>
-
 <script setup>
 import { useFullscreen } from '@vueuse/core';
-import { WSvgIcon } from '../../svg-icon';
+import { ElIcon } from 'element-plus';
+import FullScreen from './images/full_screen.vue';
+import ExitScreen from './images/exit_screen.vue';
 
 defineOptions({
   name: 'WFullScreen',
@@ -14,6 +10,17 @@ defineOptions({
 
 const { isFullscreen, enter, exit, toggle } = useFullscreen();
 </script>
+
+<template>
+  <div @click="toggle">
+    <!-- <img class="fullscreen-icon" :src="isFullscreen ? ExitIcon : EnterIcon" /> -->
+
+    <el-icon>
+      <exit-screen v-if="isFullscreen"></exit-screen>
+      <full-screen v-else></full-screen>
+    </el-icon>
+  </div>
+</template>
 
 <style lang="scss" scoped>
 .screenfull-svg {

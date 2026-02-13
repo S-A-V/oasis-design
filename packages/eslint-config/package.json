@@ -1,23 +1,28 @@
 {
   "name": "@way-ui/eslint-config",
-  "version": "0.1.2",
-  "description": "",
+  "version": "0.1.8",
+  "description": "ESLint Config for Way UI",
   "type": "module",
-  "main": "index.mjs",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "publishConfig": {
-    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
-  },
   "dependencies": {
-    "@eslint/js": "9.10.0",
-    "eslint-config-prettier": "9.1.0",
-    "eslint-plugin-prettier": "5.2.1",
-    "eslint-plugin-vue": "9.28.0",
+    "eslint-config-prettier": "10.1.1",
+    "eslint-plugin-jsonc": "2.19.1",
+    "eslint-plugin-prettier": "5.2.3",
+    "eslint-plugin-vue": "9.33.0",
     "globals": "15.9.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.21.0"
+  },
+  "peerDependencies": {
+    "@eslint/js": "^9.21.0"
+  },
+  "publishConfig": {
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
   }
 }

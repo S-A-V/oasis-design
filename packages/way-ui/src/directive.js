@@ -1,3 +1,8 @@
-import { VCopyText, VPermission, VRolePermission } from '@way-ui/directives';
+import {
+  VAutoCompleteDateInput,
+  VCopyText,
+  VPermission,
+  VRolePermission,
+} from '@way-ui/directives';
 
-export default [VCopyText, VPermission, VRolePermission];
+export default [VAutoCompleteDateInput, VCopyText, VPermission, VRolePermission];

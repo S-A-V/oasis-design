@@ -1,24 +1,31 @@
 {
   "name": "@way-ui/stylelint-config",
-  "version": "0.1.2",
-  "description": "",
+  "version": "0.1.5",
+  "description": "Stylelint Config for Way UI",
   "type": "module",
-  "main": "index.mjs",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "publishConfig": {
-    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
-  },
   "dependencies": {
-    "postcss": "8.4.45",
-    "postcss-html": "1.7.0",
+    "postcss": "8.5.3",
+    "postcss-html": "1.8.0",
     "stylelint-config-html": "1.1.0",
     "stylelint-config-recess-order": "5.1.0",
-    "stylelint-config-recommended-vue": "1.5.0",
-    "stylelint-config-standard-scss": "13.1.0"
+    "stylelint-config-recommended": "14.0.1",
+    "stylelint-config-standard": "36.0.1",
+    "stylelint-config-standard-scss": "13.1.0",
+    "stylelint-config-standard-vue": "1.0.0"
+  },
+  "devDependencies": {
+    "stylelint": "16.9.0"
+  },
+  "peerDependencies": {
+    "stylelint": "16.9.0"
+  },
+  "publishConfig": {
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
   }
 }

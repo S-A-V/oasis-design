@@ -1,16 +1,13 @@
 {
   "name": "@way-ui/theme-chalk",
-  "version": "0.0.56",
-  "description": "",
+  "version": "0.1.14",
+  "description": "Theme for Way UI",
   "type": "module",
-  "main": "index.scss",
+  "sass": "index.scss",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "publishConfig": {
-    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
   }
 }

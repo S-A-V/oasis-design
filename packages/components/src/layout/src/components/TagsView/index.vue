@@ -43,11 +43,17 @@
 import { ref, computed, watch, nextTick, getCurrentInstance, onMounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { Back, Close, Right, CircleClose, RefreshRight } from '@element-plus/icons-vue';
-import ScrollPane from './ScrollPane';
+import ScrollPane from './ScrollPane.vue';
 import { getNormalPath } from '@way-ui/utils/way';
-import useTagsViewStore from '@/store/modules/tagsView';
-import useSettingsStore from '@/store/modules/settings';
-import usePermissionStore from '@/store/modules/permission';
+import { $tab } from '@way-ui/plugins';
+import {
+  useSettingStore as useSettingsStore,
+  useTabbarStore as useTagsViewStore,
+} from '@way-ui/stores';
+import { useGlobalConfig } from '@way-ui/hooks';
+
+const vm = getCurrentInstance();
+$tab._context = vm.appContext;
 
 const visible = ref(false);
 const top = ref(0);
@@ -61,7 +67,10 @@ const route = useRoute();
 const router = useRouter();
 
 const visitedViews = computed(() => useTagsViewStore().visitedViews);
-const routes = computed(() => usePermissionStore().routes);
+const routes = computed(() => {
+  const stores = useGlobalConfig('stores');
+  return stores.value.permission.routes;
+});
 const theme = computed(() => useSettingsStore().theme);
 
 watch(route, () => {
@@ -179,14 +188,14 @@ function moveToCurrentTag() {
 }
 
 function refreshSelectedTag(view) {
-  proxy.$tab.refreshPage(view);
+  $tab.refreshPage(view);
   if (route.meta.link) {
     useTagsViewStore().delIframeView(route);
   }
 }
 
 function closeSelectedTag(view) {
-  proxy.$tab.closePage(view).then(({ visitedViews }) => {
+  $tab.closePage(view).then(({ visitedViews }) => {
     if (isActive(view)) {
       toLastView(visitedViews, view);
     }
@@ -194,7 +203,7 @@ function closeSelectedTag(view) {
 }
 
 function closeRightTags() {
-  proxy.$tab.closeRightPage(selectedTag.value).then((visitedViews) => {
+  $tab.closeRightPage(selectedTag.value).then((visitedViews) => {
     if (!visitedViews.find((i) => i.fullPath === route.fullPath)) {
       toLastView(visitedViews);
     }
@@ -202,7 +211,7 @@ function closeRightTags() {
 }
 
 function closeLeftTags() {
-  proxy.$tab.closeLeftPage(selectedTag.value).then((visitedViews) => {
+  $tab.closeLeftPage(selectedTag.value).then((visitedViews) => {
     if (!visitedViews.find((i) => i.fullPath === route.fullPath)) {
       toLastView(visitedViews);
     }
@@ -211,13 +220,13 @@ function closeLeftTags() {
 
 function closeOthersTags() {
   router.push(selectedTag.value).catch(() => {});
-  proxy.$tab.closeOtherPage(selectedTag.value).then(() => {
+  $tab.closeOtherPage(selectedTag.value).then(() => {
     moveToCurrentTag();
   });
 }
 
 function closeAllTags(view) {
-  proxy.$tab.closeAllPage().then(({ visitedViews }) => {
+  $tab.closeAllPage().then(({ visitedViews }) => {
     if (affixTags.value.some((tag) => tag.path === route.path)) {
       return;
     }
@@ -325,21 +334,27 @@ function handleScroll() {
     z-index: 3000;
     padding: 5px 0;
     margin: 0;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: 400;
     color: #333;
     list-style-type: none;
     background: var(--way-color-white);
     border-radius: 4px;
-    box-shadow: 2px 2px 3px 0 rgb(0 0 0 / 30%);
+    box-shadow: 1px 1px 4px 0 rgb(0 0 0 / 30%);
 
     li {
+      display: flex;
+      align-items: center;
       padding: 7px 16px;
       margin: 0;
       cursor: pointer;
 
       &:hover {
         background: #eee;
+      }
+
+      > svg {
+        margin-right: 6px;
       }
     }
   }
@@ -353,7 +368,7 @@ function handleScroll() {
     .el-icon-close {
       width: 16px;
       height: 16px;
-      margin: 0 0 2px 2px;
+      margin: 0 0 0 2px;
       text-align: center;
       vertical-align: 2px;
       border-radius: 50%;

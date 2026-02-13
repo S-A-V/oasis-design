@@ -1,0 +1,62 @@
+@use 'sass:list';
+@use 'sass:map';
+@use 'function' as *;
+@use 'var' as *;
+
+@mixin set-app-css($size) {
+  .w-app-#{$size} {
+    --way-app-font-size-step: #{map.get($font-size-step, $size)};
+    --way-app-line-height-step: #{map.get($line-height-step, $size)};
+    --way-app-padding-step: #{map.get($padding-step, $size)};
+    --way-app-font-size: #{map.get($font-size, $size)};
+    --way-app-line-height: #{map.get($line-height, $size)};
+    --way-app-component-size: #{map.get($component-size, $size)};
+  }
+}
+
+@mixin font-size {
+  font-size: var(--way-app-font-size);
+}
+
+@mixin line-height {
+  line-height: var(--way-app-line-height);
+}
+
+// 动态生成不同尺寸下的 font-size
+// 用法：
+// @include w-apply-font-size(14px);
+// 结果：
+// default => font-size: 14px;
+// small   => font-size: 12px;
+// large   => font-size: 14px;
+@mixin apply-font-size($value) {
+  font-size: get-font-size($value);
+}
+
+// 动态生成不同尺寸下的 line-height
+// 用法：
+// @include w-apply-line-height(20px);
+// 结果：
+// default => line-height: 20px;
+// small   => line-height: 18px;
+// large   => line-height: 20px;
+@mixin apply-line-height($value) {
+  line-height: get-line-height($value);
+}
+
+// 动态生成不同尺寸下的 padding
+// 用法：
+// @include w-apply-padding(12px, 24px, 12px, 0);
+// 结果：
+// default => padding: 12px 24px 12px 0;
+// small   => padding: 10px 22px 10px 0;
+// large   => padding: 14px 26px 14px 0;
+@mixin apply-padding($values...) {
+  $padding-list: ();
+
+  @each $value in $values {
+    $padding-list: list.append($padding-list, get-padding($value), space);
+  }
+
+  padding: $padding-list;
+}

@@ -1,12 +1,7 @@
 @use './src/base';
 
-// element
-@use './src/element/index';
-
-// way
-@use './src/way/index' as way;
-
 // component styles
+@use './src/breadcrumb';
 @use './src/button';
 @use './src/dialog';
 @use './src/drawer';

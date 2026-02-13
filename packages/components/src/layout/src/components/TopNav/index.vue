@@ -30,15 +30,15 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount, getCurrentInstance, toRef } from 'vue';
 import { ElMenu, ElMenuItem, ElSubMenu } from 'element-plus';
-import { useGlobalConfig } from '@way-ui/components/src/config-provider';
+import { useGlobalConfig } from '@way-ui/hooks';
 import { WSvgIcon } from '../../../../svg-icon';
+import { $validator } from '@way-ui/plugins';
 
 defineOptions({
   name: 'TopNav',
 });
 
 const instance = getCurrentInstance();
-const { proxy } = instance;
 const { $router } = instance.appContext.config.globalProperties;
 const router = toRef($router);
 // 顶部栏初始数
@@ -49,7 +49,7 @@ const currentIndex = ref(null);
 // 顶部显示菜单
 const topMenus = computed(() => {
   /**
-   * 
+   *
   let topMenus = [
     {
       name: 'Index',
@@ -88,7 +88,7 @@ function setVisibleNumber() {
 function handleSelect(key, keyPath) {
   currentIndex.value = key;
   const route = topMenus.value.find((item) => item.path === key);
-  if (proxy.$validator.isHttp(key)) {
+  if ($validator.isHttp(key)) {
     // http(s):// 路径新窗口打开
     window.open(key, '_blank');
   } else {
@@ -148,6 +148,7 @@ onMounted(() => {
 
       .w-svg-icon {
         margin-right: 6px;
+        font-size: 16px;
         color: #666;
       }
 

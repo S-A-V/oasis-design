@@ -102,7 +102,8 @@ function handleCurrentChange(val) {
 <style lang="scss">
 .w-pagination-container {
   position: relative;
-  padding: 8px 0;
+
+  // padding: 8px 0;
 
   &.hidden {
     display: none;

@@ -1,26 +1,38 @@
 {
   "name": "@way-ui/plugins",
-  "version": "0.0.45",
-  "description": "",
+  "version": "0.2.63",
+  "description": "Plugins for Way UI",
   "type": "module",
   "main": "index.js",
+  "module": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "publishConfig": {
-    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
-  },
   "dependencies": {
-    "@way-ui/components": "0.1.99",
-    "@way-ui/constants": "0.1.0",
-    "@way-ui/internal-utils": "0.1.0",
-    "@way-ui/utils": "0.1.7",
-    "axios": "1.7.9",
-    "element-plus": "2.8.8",
-    "file-saver": "2.0.5",
-    "js-cookie": "3.0.5"
+    "file-saver-es": "2.0.5"
+  },
+  "devDependencies": {
+    "@way-ui/constants": "workspace:*",
+    "@way-ui/hooks": "workspace:*",
+    "@way-ui/internal-utils": "workspace:*",
+    "@way-ui/stores": "workspace:*",
+    "@way-ui/utils": "workspace:*",
+    "axios": "^1.7.9",
+    "element-plus": "catalog:",
+    "js-cookie": "^3.0.5"
+  },
+  "peerDependencies": {
+    "@way-ui/constants": "workspace:*",
+    "@way-ui/hooks": "workspace:*",
+    "@way-ui/internal-utils": "workspace:*",
+    "@way-ui/stores": "workspace:*",
+    "@way-ui/utils": "workspace:*",
+    "axios": "^1.7.9",
+    "element-plus": "catalog:",
+    "js-cookie": "^3.0.5"
+  },
+  "publishConfig": {
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
   }
 }

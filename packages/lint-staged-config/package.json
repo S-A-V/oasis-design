@@ -1,16 +1,15 @@
 {
   "name": "@way-ui/lint-staged-config",
-  "version": "0.1.0",
-  "description": "",
+  "version": "0.1.5",
+  "description": "Lint-staged Config for Way UI",
   "type": "module",
-  "main": "index.mjs",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "types/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "publishConfig": {
-    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
   }
 }

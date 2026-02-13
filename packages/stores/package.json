@@ -1,0 +1,29 @@
+{
+  "name": "@way-ui/stores",
+  "version": "0.2.34",
+  "description": "Stores for Way UI",
+  "type": "module",
+  "main": "index.js",
+  "module": "index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "devDependencies": {
+    "@vueuse/core": "^10.11.1",
+    "@way-ui/constants": "workspace:*",
+    "@way-ui/hooks": "workspace:*",
+    "js-cookie": "^3.0.5",
+    "pinia": "^3.0.1"
+  },
+  "peerDependencies": {
+    "@vueuse/core": "^10.11.1",
+    "@way-ui/constants": "workspace:*",
+    "@way-ui/hooks": "workspace:*",
+    "js-cookie": "^3.0.5",
+    "pinia": "^3.0.1"
+  },
+  "publishConfig": {
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
+  }
+}

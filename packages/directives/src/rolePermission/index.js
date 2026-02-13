@@ -4,13 +4,13 @@
  *
  */
 
-import useUserStore from '@/store/modules/user';
+import { useGlobalConfig } from '@way-ui/hooks';
 
 export default {
   mounted(el, binding, vnode) {
     const { value } = binding;
     const super_admin = 'admin';
-    const roles = useUserStore().roles;
+    const roles = useGlobalConfig('stores').value.user.roles;
 
     if (value && value instanceof Array && value.length > 0) {
       const roleFlag = value;

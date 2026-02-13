@@ -1,0 +1,44 @@
+// 动态计算不同尺寸下的 font-size 值
+// 用法：
+// font-size: w-get-font-size(14px);
+// 结果：
+// default => font-size: 14px;
+// small   => font-size: 12px;
+// large   => font-size: 14px;
+@function get-font-size($value) {
+  @if $value == 0 {
+    @return 0;
+  }
+
+  @return calc(#{$value} + var(--way-app-font-size-step, 0px));
+}
+
+// 动态计算不同尺寸下的 line-height 值
+// 用法：
+// line-height: w-get-line-height(20px);
+// 结果：
+// default => line-height: 20px;
+// small   => line-height: 18px;
+// large   => line-height: 20px;
+@function get-line-height($value) {
+  @if $value == 0 {
+    @return 0;
+  }
+
+  @return calc(#{$value} + var(--way-app-line-height-step, 0px));
+}
+
+// 动态计算不同尺寸下的 padding 值
+// 用法：
+// padding-top: w-get-padding(12px);
+// 结果：
+// default => padding-top: 12px;
+// small   => padding-top: 10px;
+// large   => padding-top: 14px;
+@function get-padding($value) {
+  @if $value == 0 {
+    @return 0;
+  }
+
+  @return calc(#{$value} + var(--way-app-padding-step, 0px));
+}

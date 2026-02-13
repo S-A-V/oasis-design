@@ -69,12 +69,17 @@ const layout = computed(() => {
 .w-form-container {
   --columns: v-bind('layout.columns');
 
-  .el-form {
+  .el-form:has(> .el-form-item),
+  .w-form-item-group {
     display: grid;
     grid-template-columns: repeat(var(--columns), 1fr);
     gap: 0;
     padding: v-bind('layout.padding');
     background-color: var(--el-fill-color-blank);
+  }
+
+  + .w-form-header {
+    border-top: 1px solid var(--el-border-color-light);
   }
 
   .el-form-item {

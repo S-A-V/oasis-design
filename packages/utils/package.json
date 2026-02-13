@@ -1,24 +1,45 @@
 {
   "name": "@way-ui/utils",
-  "version": "0.1.8",
-  "description": "",
+  "version": "0.2.10",
+  "description": "Utils for Way UI",
   "type": "module",
   "main": "index.js",
+  "module": "index.js",
+  "types": "types/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./index.js",
+      "types": "./types/index.d.ts"
+    },
+    "./*": {
+      "import": "./src/*.js",
+      "types": "./types/src/*.d.ts"
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "publishConfig": {
-    "registry": "http://10.88.99.151:8081/repository/npm-chisvue-hosted/"
-  },
   "dependencies": {
     "crypto-js": "4.2.0",
+    "exceljs": "4.4.0",
+    "file-saver-es": "2.0.5",
     "gm-crypt": "0.0.2",
-    "js-cookie": "3.0.5",
     "jsencrypt": "3.3.2",
-    "vue": "3.5.13",
     "xlsx": "0.18.5"
+  },
+  "devDependencies": {
+    "dayjs": "catalog:",
+    "element-plus": "catalog:",
+    "js-cookie": "catalog:",
+    "vue": "catalog:"
+  },
+  "peerDependencies": {
+    "dayjs": "catalog:",
+    "element-plus": "catalog:",
+    "js-cookie": "catalog:",
+    "vue": "catalog:"
+  },
+  "publishConfig": {
+    "registry": "http://10.88.87.88:8081/repository/npm-chisvue-hosted/"
   }
 }

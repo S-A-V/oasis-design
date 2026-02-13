@@ -1,4 +1,4 @@
-import { provideGlobalConfig } from '@way-ui/components/src/config-provider';
+import { provideGlobalConfig } from '@way-ui/hooks';
 import { INSTALLED_KEY } from './constants';
 
 export const makeInstaller = (components = []) => {

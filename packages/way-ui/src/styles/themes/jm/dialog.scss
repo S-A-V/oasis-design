@@ -1,0 +1,38 @@
+@use '../../global' as *;
+
+.el-dialog {
+  max-width: 90vw;
+}
+
+.el-dialog__header {
+  background: linear-gradient(180deg, #d5e5fe, #ecf4ff);
+  border-bottom-width: 0;
+  box-shadow: 0 -1px 0 0 var(--way-color-info-7) inset;
+}
+
+.el-dialog__title {
+  @include w-apply-font-size(20px);
+
+  font-weight: normal;
+  color: var(--el-text-color-primary);
+}
+
+.el-dialog__body {
+  &.w-dialog-body {
+    display: flex;
+    max-height: 60vh;
+    overflow: hidden;
+  }
+}
+
+.w-app-default,
+.w-app-large {
+  .el-dialog__header {
+    height: 52px;
+  }
+
+  .el-dialog__headerbtn {
+    width: 52px;
+    height: 52px;
+  }
+}

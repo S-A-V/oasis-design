@@ -12,8 +12,8 @@
 </template>
 
 <script setup>
-import iframeToggle from './IframeToggle/index';
-import useTagsViewStore from '@/store/modules/tagsView';
+import { useTabbarStore as useTagsViewStore } from '@way-ui/stores';
+import iframeToggle from './IframeToggle/index.vue';
 
 const tagsViewStore = useTagsViewStore();
 </script>
@@ -26,7 +26,9 @@ const tagsViewStore = useTagsViewStore();
 
   /* 64 = navbar  64  */
   min-height: calc(100vh - 64px);
-  overflow: auto;
+  overflow: hidden;
+
+  // overflow: auto;
 }
 
 // .fixed-header + .app-main {

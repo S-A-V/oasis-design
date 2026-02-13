@@ -1,41 +1,50 @@
 {
+  "name": "way-design",
+  "version": "0.0.0",
   "private": true,
-  "version": "0.0.1",
-  "description": "",
+  "packageManager": "pnpm@9.15.5",
   "type": "module",
-  "author": "",
-  "license": "ISC",
   "scripts": {
-    "dev": "",
+    "dev:play": "pnpm -F @way-ui/playground run dev",
+    "dev:eslint": "npx @eslint/config-inspector@latest",
     "build": "",
+    "publish": "pnpm -r publish --access public",
+    "changeset-publish": "changeset publish --no-git-tag",
     "lint-staged": "lint-staged",
+    "lint:script": "eslint .",
+    "lint:style": "stylelint \"packages/**/*.{scss,vue}\" --config stylelint.config.js",
     "commit": "git-cz",
     "preinstall": "npx only-allow pnpm",
     "prepare": "husky",
     "predev": "pnpm install",
     "prebuild": "pnpm install"
   },
+  "devDependencies": {
+    "@changesets/cli": "2.27.12",
+    "@commitlint/cli": "19.5.0",
+    "@commitlint/config-pnpm-scopes": "19.5.0",
+    "@commitlint/cz-commitlint": "19.5.0",
+    "@way-ui/commitlint-config": "workspace:*",
+    "@way-ui/eslint-config": "workspace:*",
+    "@way-ui/lint-staged-config": "workspace:*",
+    "@way-ui/prettier-config": "workspace:*",
+    "@way-ui/stylelint-config": "workspace:*",
+    "commitizen": "4.3.0",
+    "eslint": "9.10.0",
+    "husky": "9.1.6",
+    "inquirer": "9.3.7",
+    "lint-staged": "15.2.10",
+    "prettier": "3.3.3",
+    "sass-embedded": "1.81.1",
+    "stylelint": "16.9.0"
+  },
   "engines": {
-    "node": "^18.0.0 || >=20.0.0"
+    "node": "^18.0.0 || >=20.0.0",
+    "pnpm": ">=9.15.5"
   },
   "config": {
     "commitizen": {
       "path": "@commitlint/cz-commitlint"
     }
-  },
-  "devDependencies": {
-    "@commitlint/cli": "19.5.0",
-    "@commitlint/cz-commitlint": "19.5.0",
-    "@way-ui/commitlint-config": "0.1.0",
-    "@way-ui/eslint-config": "0.1.2",
-    "@way-ui/prettier-config": "0.1.0",
-    "@way-ui/stylelint-config": "0.1.2",
-    "commitizen": "4.3.0",
-    "eslint": "9.10.0",
-    "husky": "9.1.6",
-    "lint-staged": "15.2.10",
-    "prettier": "3.3.3",
-    "sass-embedded": "1.81.1",
-    "stylelint": "16.9.0"
   }
 }

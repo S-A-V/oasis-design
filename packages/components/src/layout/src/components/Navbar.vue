@@ -16,8 +16,8 @@
     <w-top-nav v-if="settingsStore.topNav" id="topmenu-container" class="topmenu-container" />
 
     <div class="right-menu">
-      <template v-if="appStore.device !== 'mobile'">
-        <!--
+      <!-- <template v-if="appStore.device !== 'mobile'"> -->
+      <!--
         <w-header-search id="header-search" class="right-menu-item" />
 
         <w-full-screen id="screenfull" class="right-menu-item hover-effect" />
@@ -30,16 +30,18 @@
         </el-tooltip>
         -->
 
-        <w-full-screen class="full-screen-btn" />
+      <w-full-screen class="full-screen-btn" />
 
+      <!--
         <el-tooltip content="布局大小" effect="dark" placement="bottom">
           <w-size-select class="size-select-btn" />
         </el-tooltip>
+        -->
 
-        <el-icon class="icon-wrapper" @click="setLayout">
-          <Setting />
-        </el-icon>
-      </template>
+      <el-icon class="icon-wrapper" @click="setLayout">
+        <icon-setup />
+      </el-icon>
+      <!-- </template> -->
       <div class="avatar-container">
         <!--
         <el-dropdown
@@ -70,7 +72,8 @@
         </el-dropdown>
         -->
         <div class="avatar-wrapper">
-          <img :src="userStore.avatar" class="user-avatar" />
+          <img v-if="userStore.avatar" :src="userStore.avatar" class="user-avatar" />
+          <img v-else src="../images/default-avatar.png" class="user-avatar" />
           <span>{{ userStore.name }}</span>
         </div>
       </div>
@@ -79,20 +82,22 @@
 </template>
 
 <script setup>
-import { Setting } from '@element-plus/icons-vue';
+import { computed } from 'vue';
 import { ElIcon, ElTooltip, ElMessageBox } from 'element-plus';
-import useAppStore from '@/store/modules/app';
-import useUserStore from '@/store/modules/user';
-import useSettingsStore from '@/store/modules/settings';
+import { useAppStore, useSettingStore as useSettingsStore } from '@way-ui/stores';
+import { useGlobalConfig } from '@way-ui/hooks';
 import { WBreadcrumb } from '../../../breadcrumb';
 import { WFullScreen } from '../../../full-screen';
 import { WHamburger } from '../../../hamburger';
 import { WSizeSelect } from '../../../size-select';
 import { WTopNav } from '../../../top-nav';
-import TopNav from './TopNav';
+import TopNav from './TopNav/index.vue';
+import IconSetup from '../images/icon_setup.vue';
 
+const emit = defineEmits(['setLayout']);
+const emits = emit;
 const appStore = useAppStore();
-const userStore = useUserStore();
+const userStore = computed(() => useGlobalConfig('stores').value.user);
 const settingsStore = useSettingsStore();
 
 function toggleSideBar() {
@@ -119,14 +124,13 @@ function logout() {
     type: 'warning',
   })
     .then(() => {
-      userStore.logOut().then(() => {
+      userStore.value.logOut().then(() => {
         location.href = '/index';
       });
     })
     .catch(() => {});
 }
 
-const emits = defineEmits(['setLayout']);
 function setLayout() {
   emits('setLayout');
 }
@@ -214,7 +218,8 @@ function setLayout() {
       justify-content: center;
       width: 32px;
       height: 32px;
-      margin: 16px 0 0 16px;
+      margin: 16px 0 0 24px;
+      font-size: 16px;
       color: #231815;
       cursor: pointer;
       border: 1px solid #d7dce3;
@@ -230,7 +235,7 @@ function setLayout() {
         width: 32px;
         height: 32px;
         padding: 0;
-        margin: 16px 0 0 16px;
+        margin: 16px 0 0 24px;
         color: #231815;
         cursor: pointer;
         border: 1px solid #d7dce3;
@@ -241,7 +246,9 @@ function setLayout() {
     .icon-wrapper {
       width: 32px;
       height: 32px;
-      margin: 16px 0 0 16px;
+      margin: 16px 0 0 24px;
+      font-size: 16px;
+      color: #231815;
       cursor: pointer;
       border: 1px solid #d7dce3;
       border-radius: 50%;
@@ -250,7 +257,7 @@ function setLayout() {
     .avatar-container {
       display: inline-flex;
       align-items: center;
-      margin: 0 16px;
+      margin: 0 22px 0 24px;
 
       .avatar-wrapper {
         position: relative;

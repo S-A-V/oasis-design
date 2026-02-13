@@ -1,0 +1,14 @@
+@use '../../global' as *;
+
+.el-message-box__header {
+  background: linear-gradient(180deg, #d5e5fe, #ecf4ff);
+  border-bottom-width: 0;
+  box-shadow: 0 -1px 0 0 var(--way-color-info-7) inset;
+}
+
+.el-message-box__title {
+  @include w-apply-font-size(20px);
+
+  font-weight: normal;
+  color: var(--el-text-color-primary);
+}

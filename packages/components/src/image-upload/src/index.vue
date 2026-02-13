@@ -11,7 +11,7 @@
       :on-error="handleUploadError"
       :on-exceed="handleExceed"
       :before-remove="handleDelete"
-      :show-file-list="true"
+      show-file-list
       :headers="headers"
       :file-list="fileList"
       :on-preview="handlePictureCardPreview"
@@ -40,8 +40,9 @@
 <script setup>
 import { ref, computed, watch, getCurrentInstance } from 'vue';
 import { ElIcon, ElUpload, ElDialog } from 'element-plus';
+import { $modal, $token } from '@way-ui/plugins';
 import { Plus } from '@element-plus/icons-vue';
-import { useGlobalConfig } from '@way-ui/components/src/config-provider';
+import { useGlobalConfig } from '@way-ui/hooks';
 
 defineOptions({
   name: 'WImageUpload',
@@ -71,17 +72,17 @@ const props = defineProps({
   },
 });
 
-const { proxy } = getCurrentInstance();
-const { VITE_APP_BASE_URL, VITE_APP_BASE_API } = useGlobalConfig('env').value;
 // eslint-disable-next-line vue/valid-define-emits
 const emit = defineEmits();
+const { proxy } = getCurrentInstance();
+const { VITE_APP_BASE_URL, VITE_APP_BASE_API } = useGlobalConfig('env').value;
 const number = ref(0);
 const uploadList = ref([]);
 const dialogImageUrl = ref('');
 const dialogVisible = ref(false);
 const baseUrl = VITE_APP_BASE_URL + VITE_APP_BASE_API;
 const uploadImgUrl = ref(VITE_APP_BASE_URL + VITE_APP_BASE_API + '/file/upload'); // 上传的图片服务器地址
-const headers = ref({ Authorization: 'Bearer ' + proxy.$token.get() });
+const headers = ref({ Authorization: 'Bearer ' + $token.get() });
 const fileList = ref([]);
 const showTip = computed(() => props.isShowTip && (props.fileType || props.fileSize));
 
@@ -123,23 +124,23 @@ function handleBeforeUpload(file) {
     isImg = file.type.indexOf('image') > -1;
   }
   if (!isImg) {
-    proxy.$modal.msgError(`文件格式不正确, 请上传${props.fileType.join('/')}图片格式文件!`);
+    $modal.msgError(`文件格式不正确, 请上传${props.fileType.join('/')}图片格式文件!`);
     return false;
   }
   if (props.fileSize) {
     const isLt = file.size / 1024 / 1024 < props.fileSize;
     if (!isLt) {
-      proxy.$modal.msgError(`上传头像图片大小不能超过 ${props.fileSize} MB!`);
+      $modal.msgError(`上传头像图片大小不能超过 ${props.fileSize} MB!`);
       return false;
     }
   }
-  proxy.$modal.loading('正在上传图片，请稍候...');
+  $modal.loading('正在上传图片，请稍候...');
   number.value++;
 }
 
 // 文件个数超出
 function handleExceed() {
-  proxy.$modal.msgError(`上传文件数量不能超过 ${props.limit} 个!`);
+  $modal.msgError(`上传文件数量不能超过 ${props.limit} 个!`);
 }
 
 // 上传成功回调
@@ -149,8 +150,8 @@ function handleUploadSuccess(res, file) {
     uploadedSuccessfully();
   } else {
     number.value--;
-    proxy.$modal.closeLoading();
-    proxy.$modal.msgError(res.msg);
+    $modal.closeLoading();
+    $modal.msgError(res.msg);
     proxy.$refs.imageUpload.handleRemove(file);
     uploadedSuccessfully();
   }
@@ -173,14 +174,14 @@ function uploadedSuccessfully() {
     uploadList.value = [];
     number.value = 0;
     emit('update:modelValue', listToString(fileList.value));
-    proxy.$modal.closeLoading();
+    $modal.closeLoading();
   }
 }
 
 // 上传失败
 function handleUploadError() {
-  proxy.$modal.msgError('上传图片失败');
-  proxy.$modal.closeLoading();
+  $modal.msgError('上传图片失败');
+  $modal.closeLoading();
 }
 
 // 预览

@@ -21,9 +21,10 @@
 </template>
 
 <script setup>
-import { ref, computed, getCurrentInstance } from 'vue';
+import { ref, computed } from 'vue';
 import { ElDropdown, ElDropdownMenu, ElDropdownItem } from 'element-plus';
-import useAppStore from '@/store/modules/app';
+import { useAppStore } from '@way-ui/stores';
+import { $modal } from '@way-ui/plugins';
 import { WSvgIcon } from '../../svg-icon';
 
 defineOptions({
@@ -32,7 +33,6 @@ defineOptions({
 
 const appStore = useAppStore();
 const size = computed(() => appStore.size);
-const { proxy } = getCurrentInstance();
 const sizeOptions = ref([
   { label: '较大', value: 'large' },
   { label: '默认', value: 'default' },
@@ -40,7 +40,7 @@ const sizeOptions = ref([
 ]);
 
 function handleSetSize(size) {
-  proxy.$modal.loading('正在设置布局大小，请稍候...');
+  $modal.loading('正在设置布局大小，请稍候...');
   appStore.setSize(size);
   setTimeout('window.location.reload()', 1000);
 }

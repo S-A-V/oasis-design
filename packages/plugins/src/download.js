@@ -1,9 +1,9 @@
 ﻿import axios from 'axios';
 import { ElLoading, ElMessage } from 'element-plus';
-import { saveAs } from 'file-saver';
-import { ERROR_CODE_MESSAGES } from '@way-ui/constants';
+import { saveAs } from 'file-saver-es';
+import { DEFAULT_ERROR_MESSAGE, ERROR_CODE_MAP } from '@way-ui/constants';
 import { blobValidate } from '@way-ui/utils/way';
-import { useGlobalConfig } from '@way-ui/components/src/config-provider';
+import { useGlobalConfig } from '@way-ui/hooks';
 import $token from './token';
 
 let downloadLoadingInstance;
@@ -46,7 +46,7 @@ export default {
   async printErrMsg(data) {
     const resText = await data.text();
     const rspObj = JSON.parse(resText);
-    const errMsg = ERROR_CODE_MESSAGES[rspObj.code] || rspObj.msg || ERROR_CODE_MESSAGES['default'];
+    const errMsg = ERROR_CODE_MAP[rspObj.code] || rspObj.msg || DEFAULT_ERROR_MESSAGE;
     ElMessage.error(errMsg);
   },
 };

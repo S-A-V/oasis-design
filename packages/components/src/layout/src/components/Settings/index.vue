@@ -7,7 +7,7 @@
     </div>
     <div class="setting-drawer-block-checbox">
       <div class="setting-drawer-block-checbox-item" @click="handleTheme('theme-dark')">
-        <img src="@/assets/images/dark.svg" alt="dark" />
+        <img src="./images/dark.svg" alt="dark" />
         <div
           v-if="sideTheme === 'theme-dark'"
           class="setting-drawer-block-checbox-selectIcon"
@@ -32,7 +32,7 @@
         </div>
       </div>
       <div class="setting-drawer-block-checbox-item" @click="handleTheme('theme-light')">
-        <img src="@/assets/images/light.svg" alt="light" />
+        <img src="./images/light.svg" alt="light" />
         <div
           v-if="sideTheme === 'theme-light'"
           class="setting-drawer-block-checbox-selectIcon"
@@ -73,7 +73,7 @@
       <span>开启 TopNav</span>
       <span class="comp-style">
         <el-switch
-          v-model="settingsStore.topNav"
+          v-model="storeSettings.topNav"
           @change="topNavChange"
           class="drawer-switch"
         />
@@ -82,16 +82,23 @@
     -->
 
       <div class="drawer-item">
-        <span>开启常用菜单</span>
+        <span>显示常用菜单</span>
         <span class="comp-style">
-          <el-switch v-model="settingsStore.commonMenus" class="drawer-switch" />
+          <el-switch v-model="storeSettings.commonMenus" class="drawer-switch" />
         </span>
       </div>
 
       <div class="drawer-item">
-        <span>开启 Tags-Views</span>
+        <span>显示标签页</span>
         <span class="comp-style">
-          <el-switch v-model="settingsStore.tagsView" class="drawer-switch" />
+          <el-switch v-model="storeSettings.tagsView" class="drawer-switch" />
+        </span>
+      </div>
+
+      <div class="drawer-item">
+        <span>显示大小</span>
+        <span class="comp-style">
+          <el-segmented v-model="storeSettings.size" :options="sizeOptions" size="default" />
         </span>
       </div>
 
@@ -99,7 +106,7 @@
     <div class="drawer-item">
       <span>固定 Header</span>
       <span class="comp-style">
-        <el-switch v-model="settingsStore.fixedHeader" class="drawer-switch" />
+        <el-switch v-model="storeSettings.fixedHeader" class="drawer-switch" />
       </span>
     </div>
     -->
@@ -107,42 +114,52 @@
       <div class="drawer-item">
         <span>显示 Logo</span>
         <span class="comp-style">
-          <el-switch v-model="settingsStore.sidebarLogo" class="drawer-switch" />
+          <el-switch v-model="storeSettings.sidebarLogo" class="drawer-switch" />
         </span>
       </div>
 
+      <!--
       <div class="drawer-item">
-        <span>动态标题</span>
+        <span>展示动态标题</span>
         <span class="comp-style">
-          <el-switch v-model="settingsStore.dynamicTitle" class="drawer-switch" />
+          <el-switch v-model="storeSettings.dynamicTitle" class="drawer-switch" />
         </span>
       </div>
+      -->
 
-      <el-divider />
-
-      <el-button type="primary" :icon="DocumentAdd" @click="saveSetting">保存配置</el-button>
-      <el-button plain :icon="Refresh" @click="resetSetting">重置配置</el-button>
+      <div class="action-wrapper">
+        <el-button type="primary" :style="{ width: '132px' }" @click="saveSetting">
+          确认配置
+        </el-button>
+        <!-- <el-button plain :icon="Refresh" @click="resetSetting">重置配置</el-button> -->
+      </div>
     </div>
   </el-drawer>
 </template>
 
 <script setup>
-import { ref, computed, getCurrentInstance } from 'vue';
-import { ElButton, ElSwitch, ElDivider, ElDrawer } from 'element-plus';
+import { ref, computed } from 'vue';
+import { ElButton, ElSwitch, ElDivider, ElDrawer, ElSegmented } from 'element-plus';
 import { Refresh, DocumentAdd } from '@element-plus/icons-vue';
-import useAppStore from '@/store/modules/app';
-import useSettingsStore from '@/store/modules/settings';
-import usePermissionStore from '@/store/modules/permission';
+import { LOCAL_STORAGE_KEYS } from '@way-ui/constants';
+import { useAppStore, useSettingStore as useSettingsStore } from '@way-ui/stores';
+import { useGlobalConfig } from '@way-ui/hooks';
 import { handleThemeStyle } from '@way-ui/utils/theme';
+import { $modal } from '@way-ui/plugins';
 
-const { proxy } = getCurrentInstance();
 const appStore = useAppStore();
 const settingsStore = useSettingsStore();
-const permissionStore = usePermissionStore();
+const permissionStore = computed(() => useGlobalConfig('stores').value.permission);
 const showSettings = ref(false);
 const theme = ref(settingsStore.theme);
 const sideTheme = ref(settingsStore.sideTheme);
-const storeSettings = computed(() => settingsStore);
+const storeSettings = ref({
+  commonMenus: settingsStore.commonMenus,
+  tagsView: settingsStore.tagsView,
+  size: settingsStore.size,
+  sidebarLogo: settingsStore.sidebarLogo,
+  dynamicTitle: settingsStore.dynamicTitle,
+});
 const predefineColors = ref([
   '#409EFF',
   '#ff4500',
@@ -153,12 +170,17 @@ const predefineColors = ref([
   '#1e90ff',
   '#c71585',
 ]);
+const sizeOptions = ref([
+  { label: '较小', value: 'small' },
+  { label: '默认', value: 'default' },
+  { label: '较大', value: 'large' },
+]);
 
 /** 是否需要topnav */
 function topNavChange(val) {
   if (!val) {
     appStore.toggleSideBarHide(false);
-    permissionStore.setSidebarRouters(permissionStore.defaultRoutes);
+    permissionStore.value.setSidebarRouters(permissionStore.value.defaultRoutes);
   }
 }
 
@@ -173,24 +195,26 @@ function handleTheme(val) {
 }
 
 function saveSetting() {
-  proxy.$modal.loading('正在保存到本地，请稍候...');
+  $modal.loading('正在保存到本地，请稍候...');
   let layoutSetting = {
-    topNav: storeSettings.value.topNav,
+    // topNav: storeSettings.value.topNav,
     commonMenus: storeSettings.value.commonMenus,
     tagsView: storeSettings.value.tagsView,
-    fixedHeader: storeSettings.value.fixedHeader,
+    size: storeSettings.value.size,
+    // fixedHeader: storeSettings.value.fixedHeader,
     sidebarLogo: storeSettings.value.sidebarLogo,
     dynamicTitle: storeSettings.value.dynamicTitle,
-    sideTheme: storeSettings.value.sideTheme,
-    theme: storeSettings.value.theme,
+    // sideTheme: storeSettings.value.sideTheme,
+    // theme: storeSettings.value.theme,
   };
-  localStorage.setItem('layout-setting', JSON.stringify(layoutSetting));
-  setTimeout(proxy.$modal.closeLoading(), 1000);
+  localStorage.setItem(LOCAL_STORAGE_KEYS.LAYOUT_SETTING, JSON.stringify(layoutSetting));
+  setTimeout($modal.closeLoading(), 1000);
+  setTimeout('window.location.reload()', 1000);
 }
 
 function resetSetting() {
-  proxy.$modal.loading('正在清除设置缓存并刷新，请稍候...');
-  localStorage.removeItem('layout-setting');
+  $modal.loading('正在清除设置缓存并刷新，请稍候...');
+  localStorage.removeItem(LOCAL_STORAGE_KEYS.LAYOUT_SETTING);
   setTimeout('window.location.reload()', 1000);
 }
 
@@ -219,6 +243,8 @@ defineExpose({
   margin-bottom: 16px;
   font-size: 14px;
   font-weight: bold;
+  line-height: 20px;
+  color: var(--el-text-color-primary);
 }
 
 .setting-drawer-block-checbox {
@@ -263,13 +289,18 @@ defineExpose({
 }
 
 .drawer-item {
-  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 12px;
   font-size: 14px;
-  color: rgb(0 0 0 / 65%);
+  line-height: 20px;
+  color: var(--el-text-color-regular);
+}
 
-  .comp-style {
-    float: right;
-    margin-top: -6px;
-  }
+.action-wrapper {
+  display: flex;
+  justify-content: center;
+  padding-top: 36px;
 }
 </style>

@@ -48,9 +48,8 @@
 <script setup>
 import { computed } from 'vue';
 import { SESSION_KEYS } from '@way-ui/constants';
-import { useGlobalConfig } from '@way-ui/components/src/config-provider';
-import logo from '@/assets/logo/logo.png';
-import useSettingsStore from '@/store/modules/settings';
+import { useGlobalConfig } from '@way-ui/hooks';
+import { useSettingStore as useSettingsStore } from '@way-ui/stores';
 
 defineProps({
   collapse: {
@@ -60,6 +59,7 @@ defineProps({
 });
 
 const { VITE_APP_TITLE } = useGlobalConfig('env').value;
+const { logo } = useGlobalConfig('assets').value;
 const title = sessionStorage.getItem(SESSION_KEYS.APP_TITLE) || VITE_APP_TITLE;
 const settingsStore = useSettingsStore();
 const sideTheme = computed(() => settingsStore.sideTheme);
@@ -95,6 +95,7 @@ const sideTheme = computed(() => settingsStore.sideTheme);
     height: 100%;
 
     & .sidebar-logo {
+      display: inline;
       width: 32px;
       height: 32px;
       margin-right: 12px;

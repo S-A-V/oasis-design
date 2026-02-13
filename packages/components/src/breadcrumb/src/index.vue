@@ -1,20 +1,10 @@
 <template>
   <div class="way-breadcrumb">
-    <!--
-    <el-button
-      v-show="isBackButtonVisible"
-      class="back-btn"
-      icon="ArrowLeftBold"
-      @click="handleBack"
-    >
-      返回
-    </el-button>
-    -->
     <el-breadcrumb separator="/">
       <transition-group name="breadcrumb">
         <el-breadcrumb-item v-for="(item, index) in levelList" :key="item.path">
           <span
-            v-if="item.redirect === 'noRedirect' || index == levelList.length - 1"
+            v-if="item.redirect === 'noRedirect' || index === 0 || index == levelList.length - 1"
             class="no-redirect"
             >{{ item.meta.title }}</span
           >
@@ -26,7 +16,7 @@
 </template>
 
 <script setup>
-import { ref, computed, watchEffect } from 'vue';
+import { ref, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ElBreadcrumb, ElBreadcrumbItem } from 'element-plus';
 
@@ -37,24 +27,23 @@ defineOptions({
 const route = useRoute();
 const router = useRouter();
 const levelList = ref([]);
-const isBackButtonVisible = computed(() => {
-  return levelList.value.length > 1;
-});
 
 function getBreadcrumb() {
   // only show routes with meta.title
   let matched = route.matched.filter((item) => item.meta && item.meta.title);
+  /**
+   *
   const first = matched[0];
   // 判断是否为首页
   if (!isDashboard(first)) {
     matched = [{ path: '/index', meta: { title: '首页' } }].concat(matched);
   }
+   */
 
   levelList.value = matched.filter(
     (item) => item.meta && item.meta.title && item.meta.breadcrumb !== false,
   );
 }
-
 function isDashboard(route) {
   const name = route && route.name;
   if (!name) {
@@ -62,11 +51,6 @@ function isDashboard(route) {
   }
   return name.trim() === 'Index';
 }
-
-function handleBack() {
-  router.back();
-}
-
 function handleLink(item) {
   const { redirect, path } = item;
   if (redirect) {
@@ -85,13 +69,3 @@ watchEffect(() => {
 });
 getBreadcrumb();
 </script>
-
-<style lang="scss">
-@use '@way-ui/theme-chalk/src/breadcrumb';
-</style>
-
-<style lang="scss" scoped>
-.back-btn {
-  margin-right: 14px;
-}
-</style>

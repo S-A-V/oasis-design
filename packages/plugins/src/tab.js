@@ -1,4 +1,4 @@
-import useTagsViewStore from '@/store/modules/tagsView';
+import { useTabbarStore as useTagsViewStore } from '@way-ui/stores';
 
 function getRouterInstance() {
   return this._context.config.globalProperties.$router;
@@ -23,7 +23,7 @@ export default {
       .then(() => {
         const { path, query } = obj;
         router.replace({
-          path: '/redirect' + path,
+          path: path,
           query: query,
         });
       });

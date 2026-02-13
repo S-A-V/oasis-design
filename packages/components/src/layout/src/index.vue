@@ -27,12 +27,9 @@
 <script setup>
 import { ref, computed, watch, watchEffect } from 'vue';
 import { useWindowSize } from '@vueuse/core';
+import { useAppStore, useSettingStore as useSettingsStore } from '@way-ui/stores';
 import SideBar from './components/Sidebar/index.vue';
 import { AppMain, Navbar, Settings, TagsView } from './components';
-// import defaultSettings from '@/settings';
-
-import useAppStore from '@/store/modules/app';
-import useSettingsStore from '@/store/modules/settings';
 
 defineOptions({
   name: 'WLayout',
@@ -84,10 +81,33 @@ function setLayout() {
 }
 </script>
 
+<style lang="scss">
+body {
+  // --min-content-width: 1200px;
+  --sidebar-width: 204px;
+  --min-content-width: 0px;
+  --base-menu-color: #fff;
+  --base-menu-color-active: #fff;
+  --base-menu-background: #020b17;
+  --base-logo-title-color: #fff;
+  --base-menu-light-color: rgb(0 0 0 / 70%);
+  --base-menu-light-background: #fff;
+  --base-logo-light-title-color: #001529;
+  --base-sub-menu-background: #020b17;
+  --base-sub-menu-hover: #001528;
+}
+</style>
+
 <style lang="scss" scoped>
 /* stylelint-disable selector-class-pattern */
 
-@use '@/assets/styles/mixin' as *;
+@mixin clearfix {
+  &::after {
+    display: table;
+    clear: both;
+    content: '';
+  }
+}
 
 $base-sidebar-width: var(--sidebar-width);
 

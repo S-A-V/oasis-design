@@ -1,6 +1,6 @@
-import { saveAs } from 'file-saver';
+import { saveAs } from 'file-saver-es';
 import { ElMessage, ElLoading } from 'element-plus';
-import { useGlobalConfig } from '@way-ui/components/src/config-provider';
+import { useGlobalConfig } from '@way-ui/hooks';
 import $token from './token';
 
 function fetchWithToken(path = '') {
